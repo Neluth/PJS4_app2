@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.recipeit.recipeit.Connexion">
+
+    <TextView
+        android:id="@+id/txtCo1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/titre_co1"
+        android:textColor="@color/noir"
+        app:layout_constraintEnd_toStartOf="@id/guidelineMid"
+        app:layout_constraintTop_toBottomOf="@id/guidelinetop"
+        android:fontFamily="@font/cookie"
+        android:layout_marginEnd="7dp"
+        android:textSize="35sp"/>
+    <TextView
+        android:id="@+id/txtCo2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/titre_co2"
+        android:textColor="@color/noir"
+        app:layout_constraintStart_toStartOf="@id/guidelineMid"
+        app:layout_constraintBaseline_toBaselineOf="@+id/txtCo1"
+        android:fontFamily="@font/ralewaylight"
+        android:textSize="23sp"/>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/barre"
+        android:layout_width="120dp"
+        android:layout_height="2dp"
+        android:layout_marginTop="4dp"
+        android:background="@color/rouge"
+        app:layout_constraintRight_toRightOf="@id/guidelineMid"
+        app:layout_constraintLeft_toLeftOf="@id/guidelineMid"
+        app:layout_constraintTop_toBottomOf="@+id/txtCo2" />
+
+    <ImageView
+        android:id="@+id/logoimg"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="25dp"
+        android:contentDescription="@string/desc_logo"
+        android:src="@drawable/logo"
+        app:layout_constraintTop_toBottomOf="@id/barre" />
+
+    <LinearLayout
+        android:id="@+id/textPseudoLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/textbackground"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/logoimg">
+
+        <ImageView
+            android:id="@+id/imgconnexion-user"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            app:srcCompat="@drawable/connexion_user"
+            android:contentDescription="@string/icone_user"/>
+
+        <EditText
+            android:id="@+id/editTextPseudo"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="10"
+            android:background="@android:color/transparent"
+            android:ems="10"
+            android:hint="@string/hint_pseudo"
+            android:paddingStart="15dp"
+            android:paddingEnd="0dp"
+            android:fontFamily="@font/juliussansone"
+            android:inputType="textPersonName"
+            android:textColor="@color/noir" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/textMdpLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/textbackground"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="@+id/textPseudoLayout"
+        app:layout_constraintStart_toStartOf="@+id/textPseudoLayout"
+        app:layout_constraintTop_toBottomOf="@+id/textPseudoLayout">
+
+        <ImageView
+            android:id="@+id/imgconnexion-mdp"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            app:srcCompat="@drawable/connexion_mdp"
+            android:contentDescription="@string/icone_mdp"/>
+
+        <EditText
+            android:id="@+id/editTextMdp"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="10"
+            android:ems="10"
+            android:paddingStart="15dp"
+            android:paddingEnd="0dp"
+            android:textColor="@color/noir"
+            android:background="@android:color/transparent"
+            android:fontFamily="@font/juliussansone"
+            android:hint="@string/hint_mdp"
+            android:inputType="textPassword" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/buttonValider"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="75dp"
+        android:layout_marginStart="75dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/ralewayregular"
+        android:text="@string/valider"
+        android:textAllCaps="false"
+        android:textSize="18sp"
+        android:textColor="@color/blanc"
+        android:background="@drawable/cornerbtn"
+        app:layout_constraintEnd_toEndOf="@+id/textMdpLayout"
+        app:layout_constraintStart_toStartOf="@+id/textMdpLayout"
+        app:layout_constraintTop_toBottomOf="@+id/textMdpLayout" />
+
+
+    <Button
+        android:id="@+id/buttonCreerCompte"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:paddingTop="7dp"
+        android:paddingBottom="7dp"
+        android:fontFamily="@font/cookie"
+        android:text="@string/inscription"
+        android:textAllCaps="false"
+        android:textSize="27sp"
+        android:background="@android:color/transparent"
+        app:layout_constraintEnd_toEndOf="@+id/textMdpLayout"
+        app:layout_constraintStart_toStartOf="@+id/textMdpLayout"
+        app:layout_constraintTop_toBottomOf="@+id/buttonValider"
+        android:onClick="inscription"/>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineMid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelinetop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.02" />
+
+</android.support.constraint.ConstraintLayout>

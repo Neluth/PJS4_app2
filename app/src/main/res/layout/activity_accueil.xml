@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/fondGris"
+    tools:context="com.recipeit.recipeit.Accueil">
+
+    <ScrollView
+        android:id="@+id/scroll_contain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        android:scrollbars="none">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/entete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/contain_compte"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/blanc"
+                    android:paddingBottom="8dp"
+                    android:paddingTop="8dp">
+
+                    <ImageView
+                        android:id="@+id/compte"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginStart="28dp"
+                        android:contentDescription="@string/desc_user"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:srcCompat="@drawable/user"
+                        android:onClick="connexion"/>
+                </android.support.constraint.ConstraintLayout>
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/banniere"
+                    android:layout_width="match_parent"
+                    android:layout_height="190dp"
+                    android:background="@drawable/fond"
+                    app:layout_constraintTop_toBottomOf="@+id/contain_compte"
+                    android:paddingTop="7dp"
+                    android:paddingBottom="7dp">
+
+                    <TextView
+                        android:id="@+id/txtTitre1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/titre_banniere1"
+                        app:layout_constraintEnd_toStartOf="@id/guidelineMid"
+                        android:fontFamily="@font/cookie"
+                        android:layout_marginEnd="8dp"
+                        android:textSize="35sp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/titre_banniere2"
+                        app:layout_constraintStart_toStartOf="@id/guidelineMid"
+                        app:layout_constraintBaseline_toBaselineOf="@id/txtTitre1"
+                        android:fontFamily="@font/ralewaylight"
+                        android:textSize="23sp"/>
+
+                    <android.support.constraint.ConstraintLayout
+                        android:id="@+id/barre"
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginTop="3dp"
+                        android:background="@color/rouge"
+                        android:layout_marginEnd="145dp"
+                        android:layout_marginStart="145dp"
+                        app:layout_constraintTop_toBottomOf="@id/txtTitre1"/>
+
+                    <LinearLayout
+                        android:id="@+id/rech"
+                        android:layout_width="250dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="25dp"
+                        android:background="@drawable/cornertxt"
+                        android:orientation="horizontal"
+                        android:padding="5dp"
+                        app:layout_constraintTop_toBottomOf="@id/barre">
+
+                        <ImageView
+                            android:id="@+id/micro"
+                            android:layout_width="40dp"
+                            android:layout_height="20dp"
+                            android:layout_weight="1"
+                            app:srcCompat="@drawable/micro"
+                            android:contentDescription="@string/desc_mic"/>
+
+                        <EditText
+                            android:id="@+id/rechercheSimple"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="15"
+                            android:background="@android:color/transparent"
+                            android:fontFamily="@font/juliussansone"
+                            android:hint="@string/hint_recherche"
+                            android:inputType="text"
+                            android:textSize="17sp" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/boutonPlus"
+                        android:layout_width="20dp"
+                        android:layout_marginTop="25dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/plus"
+                        android:contentDescription="@string/desc_plus"
+                        app:layout_constraintTop_toBottomOf="@id/rech"
+                        app:layout_constraintEnd_toStartOf="@id/guidelineMid"/>
+
+                    <TextView
+                        android:id="@+id/texteRechercheAvancée"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/cookie"
+                        android:text="@string/titre_recherche"
+                        android:textSize="27sp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginStart="10dp"
+                        app:layout_constraintTop_toBottomOf="@id/rech"
+                        app:layout_constraintStart_toEndOf="@id/boutonPlus"/>
+
+                    <android.support.constraint.Guideline
+                        android:id="@+id/guidelineMid"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.5" />
+
+
+                </android.support.constraint.ConstraintLayout>
+            </android.support.constraint.ConstraintLayout>
+            <FrameLayout
+                android:id="@+id/contain_fragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/entete"
+                >
+                <!-- LES FRAGMENTS SERONT ICI -->
+            </FrameLayout>
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/menu"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/blanc"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guidelineMenu1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.33072916" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guidelineMenu2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.6640625" />
+
+        <ImageView
+            android:id="@+id/home"
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+            android:layout_centerHorizontal="true"
+            android:contentDescription="@string/desc_home"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineMenu2"
+            app:layout_constraintStart_toStartOf="@+id/guidelineMenu1"
+            app:layout_constraintTop_toTopOf="parent"
+            android:onClick="FragAccueil"
+            app:srcCompat="@drawable/homeactive" />
+
+        <ImageView
+            android:id="@+id/voyage"
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+            android:layout_centerHorizontal="true"
+            android:contentDescription="@string/desc_world"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineMenu1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:onClick="FragVoyage"
+            app:srcCompat="@drawable/world"/>
+
+        <ImageView
+            android:id="@+id/recherche"
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+            android:layout_centerHorizontal="true"
+            android:layout_weight="1"
+            android:contentDescription="@string/desc_more"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guidelineMenu2"
+            app:layout_constraintTop_toTopOf="parent"
+            android:onClick="FragRecherche"
+            app:srcCompat="@drawable/more" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.constraint.ConstraintLayout>
