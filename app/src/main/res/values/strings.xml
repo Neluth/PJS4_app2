@@ -7,6 +7,8 @@
     <string name="desc_user">Icone du compte pour accéder à son compte</string>
     <string name="desc_mic">Icone du micro pour activer la fonction vocale</string>
     <string name="desc_plus">Icone du bouton + pour la recherche avec filtres</string>
+    <string name="desc_fridge">Icone du bouton pour accéder à son placard/fridge</string>
+    <string name="desc_ajout">Icone du bouton pour ajouter une recette</string>
     <string name="desc_logo">Logo Recipe it !</string>
 
     <string name="icone_user">Représentation iconographique de l\'utilisateur</string>

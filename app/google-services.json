@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "931015869899",
+    "firebase_url": "https://pjs4-test.firebaseio.com",
+    "project_id": "pjs4-test",
+    "storage_bucket": "pjs4-test.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:931015869899:android:03049c3161a18b69",
+        "android_client_info": {
+          "package_name": "com.recipeit.recipeit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "931015869899-4j4orukodnt6mpri05h6jcoi24c2h3j7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.recipeit.recipeit",
+            "certificate_hash": "3b063d931d4c7ad2fcec876398e871f1b8b6a1d8"
+          }
+        },
+        {
+          "client_id": "931015869899-hdc797fc5v2crcal3pfads7r53ilo09o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.recipeit.recipeit",
+            "certificate_hash": "927ce8de838e45571db05d2b4f43fa9f58f91a61"
+          }
+        },
+        {
+          "client_id": "931015869899-ag9focrh2egfi4o54e0ukptjok5e5j9a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFm7diKMvSrvUzIQfccxw8mJQmLgJUO0M"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "931015869899-ag9focrh2egfi4o54e0ukptjok5e5j9a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
