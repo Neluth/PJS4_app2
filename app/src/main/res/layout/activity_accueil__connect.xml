@@ -58,6 +58,7 @@
                         app:layout_constraintEnd_toStartOf="@id/guidelineMid"
                         android:fontFamily="@font/cookie"
                         android:layout_marginEnd="8dp"
+                        android:textColor="@color/noir"
                         android:textSize="35sp"/>
                     <TextView
                         android:layout_width="wrap_content"
@@ -66,6 +67,7 @@
                         app:layout_constraintStart_toStartOf="@id/guidelineMid"
                         app:layout_constraintBaseline_toBaselineOf="@id/txtTitre1"
                         android:fontFamily="@font/ralewaylight"
+                        android:textColor="@color/noir"
                         android:textSize="23sp"/>
 
                     <android.support.constraint.ConstraintLayout

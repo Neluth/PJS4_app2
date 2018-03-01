@@ -30,6 +30,16 @@
     <string name="titre_recherche">Recherche avancée</string>
     <string name="titre_banniere1">Une envie</string>
     <string name="titre_banniere2">particulière</string>
+    <string name="titre_espace_perso1">Votre espace</string>
+    <string name="titre_espace_perso2">personnel</string>
+    <string name="titre_creer1">Créer une</string>
+    <string name="titre_creer2">recette</string>
+    <string name="titre_fridge1">Modifier</string>
+    <string name="titre_fridge2">mon fridge</string>
+    <string name="titre_favoris1">Mes recettes</string>
+    <string name="titre_favoris2">favorites</string>
+    <string name="titre_compte1">Paramètres</string>
+    <string name="titre_compte2">du compte</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
