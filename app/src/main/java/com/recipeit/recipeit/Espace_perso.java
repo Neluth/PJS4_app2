@@ -8,6 +8,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class Espace_perso extends AppCompatActivity {
+    private String mail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,6 +17,8 @@ public class Espace_perso extends AppCompatActivity {
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         TextView txt = findViewById(R.id.titreEspaceP2);
-        txt.append(" " + user.getEmail());
+        mail = user.getEmail().toString();
+        String [] pseudo= mail.split("@", 2);
+        txt.append(" " + pseudo[0]);
     }
 }

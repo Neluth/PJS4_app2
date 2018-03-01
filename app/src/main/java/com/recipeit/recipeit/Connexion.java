@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -30,7 +31,14 @@ public class Connexion extends AppCompatActivity {
     }
     /* ne marche pas mais devrait marcher */
     public void Connex(View v) {
-
+        if (TextUtils.isEmpty(txtEmailAddress.getText().toString())) {
+            Toast.makeText(getApplicationContext(), "Entrez une adresse email !", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (TextUtils.isEmpty(txtPassword.getText().toString())) {
+            Toast.makeText(getApplicationContext(), "Entrez un mot de passe !", Toast.LENGTH_SHORT).show();
+            return;
+        }
         String email = txtEmailAddress.getText().toString();
         final String password = txtPassword.getText().toString();
 
