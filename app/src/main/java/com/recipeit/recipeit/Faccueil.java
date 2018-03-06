@@ -7,6 +7,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+
+import java.util.ArrayList;
 
 
 /**
@@ -28,6 +31,9 @@ public class Faccueil extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    private static ArrayList<ImageView> topRecettes;
+    private static ArrayList<ImageView> recettesDuMoment;
 
     public Faccueil() {
         // Required empty public constructor
@@ -58,6 +64,8 @@ public class Faccueil extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        //initialiser les images top recettes et recettes du moment
     }
 
     @Override
