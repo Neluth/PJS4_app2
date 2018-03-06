@@ -8,6 +8,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class Accueil extends AppCompatActivity implements Faccueil.OnFragmentInteractionListener, FVoyage.OnFragmentInteractionListener, Frecherche.OnFragmentInteractionListener{
 
@@ -26,6 +30,13 @@ public class Accueil extends AppCompatActivity implements Faccueil.OnFragmentInt
         fragmentTransaction.replace(R.id.contain_fragment, fragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
+
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+
+        if (mAuth.getCurrentUser() != null) {
+            startActivity(new Intent(Accueil.this, Accueil_Connect.class));
+            finish();
+        }
     }
 
     public void connexion(View view){

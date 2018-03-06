@@ -1,5 +1,6 @@
 package com.recipeit.recipeit;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v4.app.FragmentManager;
@@ -8,11 +9,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class Accueil_Connect extends AppCompatActivity implements FFridge.OnFragmentInteractionListener, fajout.OnFragmentInteractionListener, Faccueil.OnFragmentInteractionListener, FVoyage.OnFragmentInteractionListener, Frecherche.OnFragmentInteractionListener{
 
     private FragmentTransaction fragmentTransaction;
     private FragmentManager fragmentManager;
+    private FirebaseUser user;
+    private FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +34,14 @@ public class Accueil_Connect extends AppCompatActivity implements FFridge.OnFrag
         fragmentTransaction.replace(R.id.contain_fragment, fragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
+
+        auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
+
+        TextView pseudoTV = findViewById(R.id.pseudo);
+        String pseudo = user.getEmail().toString();
+        String [] split = pseudo.split("@", 2);
+        pseudoTV.setText(split[0]);
     }
 
 
@@ -158,6 +174,14 @@ public class Accueil_Connect extends AppCompatActivity implements FFridge.OnFrag
         startActivity(intent);
     }
 
+    public void deconnexion(View view){
+        auth.signOut();
+        Toast.makeText(Accueil_Connect.this, "Au revoir !", Toast.LENGTH_LONG).show();
+        Intent i = new Intent(Accueil_Connect.this, Accueil.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+        startActivity(i);
+        finish();
+    }
 
     @Override
     public void onFragmentInteraction(Uri uri) {

@@ -10,6 +10,8 @@
     <string name="desc_fridge">Icone du bouton pour accéder à son placard/fridge</string>
     <string name="desc_ajout">Icone du bouton pour ajouter une recette</string>
     <string name="desc_logo">Logo Recipe it !</string>
+    <string name="desc_triangle">Icone du triangle, indiquant un lien</string>
+    <string name="desc_deco">Icone de la deconnexion</string>
 
     <string name="icone_user">Représentation iconographique de l\'utilisateur</string>
     <string name="icone_mdp">Représentation iconographique du mot de passe</string>

@@ -28,6 +28,11 @@ public class Connexion extends AppCompatActivity {
         txtEmailAddress = (EditText) findViewById(R.id.editTextPseudo);
         txtPassword = (EditText) findViewById(R.id.editTextMdp);
         mAuth = FirebaseAuth.getInstance();
+
+        if (mAuth.getCurrentUser() != null) {
+            startActivity(new Intent(Connexion.this, Accueil_Connect.class));
+            finish();
+        }
     }
     /* ne marche pas mais devrait marcher */
     public void Connex(View v) {
@@ -61,7 +66,7 @@ public class Connexion extends AppCompatActivity {
                             }
                         } else {
                             Intent intent = new Intent(Connexion.this, Accueil_Connect.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                            //intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                             startActivity(intent);
                             finish();
                             //Toast.makeText(Connexion.this, "Login successful", Toast.LENGTH_LONG).show();
