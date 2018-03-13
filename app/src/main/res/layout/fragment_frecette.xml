@@ -1,0 +1,253 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.recipeit.recipeit.Frecette">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/titreRecette"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/cookie"
+            android:textColor="@android:color/black"
+            android:textSize="30sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/barre"
+            android:layout_width="80dp"
+            android:layout_height="2dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="8dp"
+            android:background="#AA0909"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/titreRecette"></android.support.constraint.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/parText"
+            android:text="Par : "
+            android:fontFamily="@font/cookie"
+            android:textColor="@android:color/black"
+            android:textSize="25sp"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/barre"
+            />
+
+        <TextView
+            android:id="@+id/createurRecette"
+            android:fontFamily="@font/ralewayregular"
+            android:textColor="@android:color/black"
+            android:textSize="25sp"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/parText"
+            app:layout_constraintTop_toBottomOf="@+id/barre"
+            />
+
+        <TextView
+            android:id="@+id/noteText"
+            android:text="Note : "
+            android:fontFamily="@font/cookie"
+            android:textColor="@android:color/black"
+            android:textSize="25sp"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toStartOf="@id/note"
+            app:layout_constraintTop_toBottomOf="@+id/barre"
+            />
+
+        <TextView
+            android:id="@+id/note"
+            android:fontFamily="@font/ralewayregular"
+            android:textColor="@android:color/black"
+            android:textSize="25sp"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/barre"
+            />
+
+        <ImageView
+            android:id="@+id/iconeClock"
+            android:layout_width="20sp"
+            android:layout_height="20sp"
+            android:src="@drawable/clock"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/parText"
+            />
+
+        <TextView
+            android:id="@+id/tempsRecette"
+            android:fontFamily="@font/ralewayregular"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/iconeClock"
+            app:layout_constraintTop_toBottomOf="@+id/parText"
+            />
+
+        <ImageView
+            android:id="@+id/fourchettes"
+            android:layout_width="50sp"
+            android:layout_height="20sp"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toStartOf="@id/difficulteText"
+            app:layout_constraintTop_toBottomOf="@id/noteText"
+            />
+
+        <TextView
+            android:id="@+id/difficulteText"
+            android:fontFamily="@font/ralewayregular"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/noteText" />
+
+        <ImageView
+            android:id="@+id/recetteImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintTop_toBottomOf="@id/iconeClock"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/titreIngredients"
+            android:text="Les ingrédients"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/cookie"
+            android:textColor="@android:color/black"
+            android:textSize="30sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/recetteImage"
+            />
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/barre2"
+            android:layout_width="80dp"
+            android:layout_height="2dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="8dp"
+            android:background="#AA0909"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/titreIngredients"></android.support.constraint.ConstraintLayout>
+
+        <ListView
+            android:id="@+id/listeIngredients"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/barre2"></ListView>
+
+        <TextView
+            android:id="@+id/titreEtapes"
+            android:text="La recette"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/cookie"
+            android:textColor="@android:color/black"
+            android:textSize="30sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/listeIngredients"
+            />
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/barre3"
+            android:layout_width="80dp"
+            android:layout_height="2dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="8dp"
+            android:background="#AA0909"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/titreEtapes"></android.support.constraint.ConstraintLayout>
+
+        <ImageView
+            android:id="@+id/iconePlus"
+            android:layout_width="20sp"
+            android:layout_height="20sp"
+            android:src="@drawable/addactive"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toStartOf="@id/toutesEtapes"
+            app:layout_constraintTop_toBottomOf="@+id/barre3"
+            />
+
+        <TextView
+            android:id="@+id/toutesEtapes"
+            android:text="Voir toutes les étapes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/cookie"
+            android:textColor="@android:color/black"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/barre3"
+            />
+
+
+
+    </android.support.constraint.ConstraintLayout>
+
+</FrameLayout>
