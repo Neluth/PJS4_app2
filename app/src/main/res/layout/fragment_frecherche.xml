@@ -2,11 +2,76 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.recipeit.recipeit.Frecherche">
 
-    <TextView
-        android:layout_width="match_parent"
+    <android.support.constraint.ConstraintLayout
         android:layout_height="match_parent"
-        android:text="recherche" />
+        android:layout_width="match_parent">
+
+        <TextView
+            android:id="@+id/txtRechercheAvancee"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/cookie"
+            android:textColor="@android:color/black"
+            android:textSize="30sp"
+            android:text="Recherche avancée"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/barre"
+            android:layout_width="80dp"
+            android:layout_height="2dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="8dp"
+            android:background="#AA0909"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtRechercheAvancee"></android.support.constraint.ConstraintLayout>
+
+
+        <ImageView
+            android:id="@+id/img_add_ingr"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="8dp"
+            android:onClick="ajoutIngr"
+            android:src="@drawable/addactive"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtIngrRecherche" />
+
+        <TextView
+            android:id="@+id/txtIngrRecherche"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/cookie"
+            android:text="Les Ingrédients :"
+            android:textColor="@android:color/black"
+            android:textSize="25sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnLancerRecherche" />
+
+        <Button
+            android:id="@+id/btnLancerRecherche"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Lancer la recherche !"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/barre" />
+
+    </android.support.constraint.ConstraintLayout>
 
 </FrameLayout>

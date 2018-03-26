@@ -14,7 +14,7 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class Accueil_Connect extends AppCompatActivity implements FFridge.OnFragmentInteractionListener, fajout.OnFragmentInteractionListener, Faccueil.OnFragmentInteractionListener, FVoyage.OnFragmentInteractionListener, Frecherche.OnFragmentInteractionListener{
+public class Accueil_Connect extends AppCompatActivity implements FFridge.OnFragmentInteractionListener, Faccueil.OnFragmentInteractionListener, FVoyage.OnFragmentInteractionListener, Frecherche.OnFragmentInteractionListener{
 
     private FragmentTransaction fragmentTransaction;
     private FragmentManager fragmentManager;
@@ -118,29 +118,9 @@ public class Accueil_Connect extends AppCompatActivity implements FFridge.OnFrag
         img.setImageResource(R.drawable.world);
     }
 
-    public void FragAjout(View view){
-        fajout fragment = new fajout();
-        fragmentManager = getSupportFragmentManager();
-        fragmentTransaction = fragmentManager.beginTransaction();
-
-        fragmentTransaction.replace(R.id.contain_fragment, fragment);
-        fragmentTransaction.commit();
-
-        ImageView img = findViewById(R.id.home);
-        img.setImageResource(R.drawable.home);
-
-        img = findViewById(R.id.ajout);
-        img.setImageResource(R.drawable.addactive);
-
-        img = findViewById(R.id.fridge);
-        img.setImageResource(R.drawable.fridge);
-
-
-        img = findViewById(R.id.recherche);
-        img.setImageResource(R.drawable.more);
-
-        img = findViewById(R.id.voyage);
-        img.setImageResource(R.drawable.world);
+    public void ajoutRecette(View view){
+        Intent intentCreerRecette = new Intent(this, AjoutRecette.class);
+        startActivity(intentCreerRecette);
     }
 
     public void FragFridge(View view){
