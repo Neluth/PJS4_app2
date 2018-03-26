@@ -186,4 +186,5 @@ public class Accueil_Connect extends AppCompatActivity implements FFridge.OnFrag
     public void onFragmentInteraction(Uri uri) {
 
     }
+
 }

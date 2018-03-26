@@ -90,7 +90,6 @@ public class AddIngredients extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        Log.d("WEAREBEFOREDATA", "ptn");
         final View view = inflater.inflate(R.layout.fragment_add_ingredients, container, false);
 
         ref.addValueEventListener(new ValueEventListener() {
@@ -99,7 +98,6 @@ public class AddIngredients extends Fragment {
                 // Is better to use a List, because you don't know the size
                 // of the iterator returned by dataSnapshot.getChildren() to
                 // initialize the array
-                Log.d("WEAREINDATA", "ptn");
                 final List<String> ingr = new ArrayList<>();
 
                 for (DataSnapshot areaSnapshot: dataSnapshot.getChildren()) {

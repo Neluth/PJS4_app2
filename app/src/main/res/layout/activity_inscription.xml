@@ -63,7 +63,7 @@
             android:layout_weight="10"
             android:background="@android:color/transparent"
             android:ems="10"
-            android:hint="@string/hint_pseudo2"
+            android:hint="@string/choix_du_mail"
             android:paddingStart="15dp"
             android:paddingEnd="0dp"
             android:fontFamily="@font/juliussansone"
@@ -141,13 +141,6 @@
             android:inputType="textPassword"/>
     </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/valider"
-        app:layout_constraintTop_toBottomOf="@+id/textMdpLayout2"
-        android:onClick="Creer"/>
-
     <android.support.constraint.Guideline
         android:id="@+id/guidelineMid"
         android:layout_width="wrap_content"
@@ -161,5 +154,18 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.02" />
+
+    <Button
+        android:id="@+id/btnValiderInscr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Valider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textMdpLayout2"
+        android:onClick="Creer"/>
 
 </android.support.constraint.ConstraintLayout>

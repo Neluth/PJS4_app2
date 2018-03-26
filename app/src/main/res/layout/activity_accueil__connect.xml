@@ -157,7 +157,7 @@
                         android:layout_height="20dp"
                         android:layout_marginTop="25dp"
                         android:contentDescription="@string/desc_plus"
-                        android:src="@drawable/plus"
+                        android:src="@drawable/moreactive"
                         app:layout_constraintEnd_toStartOf="@id/guidelineMid"
                         app:layout_constraintTop_toBottomOf="@id/rech" />
 
