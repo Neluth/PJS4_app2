@@ -4,6 +4,8 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +26,8 @@ public class FFridge extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private FragmentTransaction fragmentTransaction;
+    private FragmentManager fragmentManager;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -79,7 +83,14 @@ public class FFridge extends Fragment {
         imgAjoutIngr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // do something
+                fragmentManager = getActivity().getSupportFragmentManager();
+                fragmentTransaction = fragmentManager.beginTransaction();
+
+                AddIngredients fragment = new AddIngredients();
+
+                fragmentTransaction.add(R.id.contain_spinner_ingr, fragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
             }
         });
         return view;
