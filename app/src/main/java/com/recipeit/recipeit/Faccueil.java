@@ -9,6 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.synnapps.carouselview.CarouselView;
+import com.synnapps.carouselview.ImageListener;
+
 import java.util.ArrayList;
 
 
@@ -31,6 +34,14 @@ public class Faccueil extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+    CarouselView carouselView;
+    ImageListener imageListener = new ImageListener() {
+        @Override
+        public void setImageForPosition(int position, ImageView imageView) {
+            imageView.setImageResource(sampleImages[position]);
+        }
+    };
+    int[] sampleImages = {R.drawable.default_carousel, R.drawable.default_carousel, R.drawable.default_carousel, R.drawable.default_carousel, R.drawable.default_carousel};
 
     private static ArrayList<ImageView> topRecettes;
     private static ArrayList<ImageView> recettesDuMoment;
@@ -65,14 +76,20 @@ public class Faccueil extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
-        //initialiser les images top recettes et recettes du moment
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_faccueil, container, false);
+        //initialiser les images top recettes et recettes du moment
+        carouselView = (CarouselView) view.findViewById(R.id.carouselView);
+        carouselView.setPageCount(sampleImages.length);
+
+        carouselView.setImageListener(imageListener);
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_faccueil, container, false);
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
