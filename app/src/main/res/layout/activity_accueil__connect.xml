@@ -170,6 +170,7 @@
                         android:fontFamily="@font/cookie"
                         android:text="@string/titre_recherche"
                         android:textSize="27sp"
+                        android:onClick="FragRecherche"
                         app:layout_constraintStart_toEndOf="@id/boutonPlus"
                         app:layout_constraintTop_toBottomOf="@id/rech" />
 

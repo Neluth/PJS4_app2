@@ -12,9 +12,12 @@
     <string name="desc_logo">Logo Recipe it !</string>
     <string name="desc_triangle">Icone du triangle, indiquant un lien</string>
     <string name="desc_deco">Icone de la deconnexion</string>
+    <string name="desc_img_rec">Photographie de la recette</string>
+    <string name="desc_img_rec_ic">Icone pour choisir la photographie</string>
 
     <string name="icone_user">Représentation iconographique de l\'utilisateur</string>
     <string name="icone_mdp">Représentation iconographique du mot de passe</string>
+    <string name="icone_nom">Représentation iconographique du nom de la recette</string>
 
     <string name="hint_recherche">Recherche simple</string>
     <string name="hint_pseudo">pseudo</string>
@@ -22,6 +25,14 @@
     <string name="hint_pseudo2">choix du pseudo</string>
     <string name="hint_mdp2">choix du mot de passe</string>
     <string name="hint_mdp3">confirmation</string>
+    <string name="hint_nom">Nom</string>
+
+
+    <string name="txt_ajout1">Ajouter une photo</string>
+    <string name="txt_nom">Nom de votre recette</string>
+    <string name="txt_dif">La difficulté</string>
+    <string name="txt_ing">Choix des ingrédients</string>
+    <string name="txt_q">Quantité :</string>
 
     <string name="valider">valider</string>
     <string name="titre_inscr1">Bienvenue sur</string>
@@ -42,7 +53,15 @@
     <string name="titre_favoris2">favorites</string>
     <string name="titre_compte1">Paramètres</string>
     <string name="titre_compte2">du compte</string>
+    <string name="titre_ajout1">Nouvelle</string>
+    <string name="titre_ajout2">recette</string>
+    <string name="titre_espace_parametre1">Réglez vos</string>
+    <string name="titre_espace_parametre2">paramètres</string>
+    <string name="titre_espace_parametre_alergie">Êtes vous allergique ?</string>
+    <string name="titre_espace_parametre_resetmdp">Changer votre mot de passe ?</string>
+    <string name="titre_espace_parametre_delete">Supprimer votre compte ?</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_parameter">ParameterActivity</string>
 </resources>

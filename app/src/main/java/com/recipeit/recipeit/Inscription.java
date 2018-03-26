@@ -15,14 +15,23 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.DatabaseReference;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 public class Inscription extends AppCompatActivity {
     private EditText txtEmailAddress;
     private EditText txtPassword;
     private EditText txtPasswordVerif;
-    private String mdp1;
-    private String mdp2;
     private FirebaseAuth mAuth;
+    private DatabaseReference mDatabase;
+    private Date d;
+    private SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+    private String formattedDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,9 +40,10 @@ public class Inscription extends AppCompatActivity {
         txtEmailAddress = (EditText) findViewById(R.id.editTextPseudo);
         txtPassword = (EditText) findViewById(R.id.editTextMdp);
         txtPasswordVerif = (EditText) findViewById(R.id.editTextMdp2);
-        mdp1 = (String) txtPassword.getText().toString();
-        mdp2 = (String) txtPasswordVerif.getText().toString();
         mAuth = FirebaseAuth.getInstance();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        d = Calendar.getInstance().getTime();
+        formattedDate = df.format(d);
     }
 
     public void Creer(View v) {
@@ -53,7 +63,7 @@ public class Inscription extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Confirmer le mot de passe !", Toast.LENGTH_SHORT).show();
             return;
         }
-        /*if (mdp1!=mdp2) {
+        /*if (txtPassword.getText().toString()!= txtPasswordVerif.getText().toString()) {
             Toast.makeText(getApplicationContext(), "Le mot de passe doit être identique.", Toast.LENGTH_SHORT).show();
             return;
         }*/
@@ -65,6 +75,7 @@ public class Inscription extends AppCompatActivity {
                         progressDialog.dismiss();
 
                         if (task.isSuccessful()) {
+                            onAuthSuccess(task.getResult().getUser());
                             Toast.makeText(Inscription.this, "Vous avez maintenant un compte.", Toast.LENGTH_LONG).show();
                             Intent i = new Intent(Inscription.this, Connexion.class);
                             startActivity(i);
@@ -76,6 +87,24 @@ public class Inscription extends AppCompatActivity {
                         }
                     }
                 });
+    }
+
+    private void onAuthSuccess(FirebaseUser user) {
+        String username = usernameFromEmail(user.getEmail());
+        writeNewUser(user.getUid(), username, user.getEmail(), formattedDate, txtPassword.getText().toString());
+    }
+    private String usernameFromEmail(String email) {
+        if (email.contains("@")) {
+            return email.split("@")[0];
+        } else {
+            return email;
+        }
+    }
+    private void writeNewUser(String userId, String name, String email, String date, String mdp) {
+        User user = new User(name, email, date, mdp);
+        mDatabase.child("users").child(userId).setValue(user);
+        Role role = new Role();
+        mDatabase.child("users").child(userId).child("role").setValue(role.toMap());
     }
 
     /*public void avatar(View view){

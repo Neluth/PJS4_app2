@@ -1,11 +1,14 @@
 package com.recipeit.recipeit;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.recipeit.recipeit.R;
 
 public class Espace_perso extends AppCompatActivity {
     private String mail;
@@ -20,5 +23,15 @@ public class Espace_perso extends AppCompatActivity {
         mail = user.getEmail().toString();
         String [] pseudo= mail.split("@", 2);
         txt.append(" " + pseudo[0]);
+    }
+
+    public void parametre(View view){
+        Intent pPage = new Intent(Espace_perso.this, ParameterActivity.class);
+        startActivity(pPage);
+    }
+
+    public void ajoutRecette(View view){
+        Intent inte = new Intent(Espace_perso.this, AjoutRecette.class);
+        startActivity(inte);
     }
 }

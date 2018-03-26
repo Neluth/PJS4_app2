@@ -57,6 +57,7 @@
         android:paddingTop="25dp"
         android:paddingBottom="30dp"
         android:layout_marginTop="20dp"
+        android:onClick="ajoutRecette"
         android:background="@color/common_google_signin_btn_text_light_disabled">
 
         <TextView
@@ -186,7 +187,8 @@
         android:paddingTop="25dp"
         android:paddingBottom="30dp"
         android:layout_marginTop="20dp"
-        android:background="@color/common_google_signin_btn_text_light_disabled">
+        android:background="@color/common_google_signin_btn_text_light_disabled"
+        android:onClick="parametre">
 
         <TextView
             android:id="@+id/titrecompte1"
