@@ -117,6 +117,15 @@ public class AddIngredients extends Fragment {
             }
         });
 
+        view.findViewById(R.id.imgRemoveIngr).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //getActivity().getSupportFragmentManager().popBackStack();
+                //getActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
+                //getFragmentManager().beginTransaction().remove(ActivityFragment.this).commit();
+            }
+        });
+
         return view;
     }
 
@@ -127,16 +136,19 @@ public class AddIngredients extends Fragment {
         }
     }
 
+    /*
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
-        } else {
+        }
+        else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
     }
+    */
 
     @Override
     public void onDetach() {

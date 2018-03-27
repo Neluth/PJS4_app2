@@ -30,5 +30,29 @@
             android:fontFamily="@font/ralewaylight"
             app:layout_constraintTop_toBottomOf="@id/listingr" />
 
+        <EditText
+            android:id="@+id/editText2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:ems="3"
+            android:inputType="number"
+            app:layout_constraintBottom_toBottomOf="@+id/quantite"
+            app:layout_constraintStart_toEndOf="@+id/quantite"
+            app:layout_constraintTop_toBottomOf="@+id/listingr" />
+
+        <ImageView
+            android:id="@+id/imgRemoveIngr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/menuouvert"
+            app:layout_constraintBottom_toBottomOf="@+id/editText2"
+            app:layout_constraintStart_toEndOf="@+id/editText2"
+            app:layout_constraintTop_toTopOf="@+id/editText2" />
+
     </android.support.constraint.ConstraintLayout>
 </FrameLayout>

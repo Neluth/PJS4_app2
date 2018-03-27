@@ -21,7 +21,7 @@ import android.widget.ImageView;
  * Use the {@link FFridge#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FFridge extends Fragment {
+public class FFridge extends Fragment implements AddIngredients.OnFragmentInteractionListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -79,7 +79,7 @@ public class FFridge extends Fragment {
                 // do something
             }
         });
-        ImageView imgAjoutIngr = (ImageView) view.findViewById(R.id.imgAddIngr);
+        ImageView imgAjoutIngr = (ImageView) view.findViewById(R.id.imgAddIngrFridge);
         imgAjoutIngr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -88,7 +88,7 @@ public class FFridge extends Fragment {
 
                 AddIngredients fragment = new AddIngredients();
 
-                fragmentTransaction.add(R.id.contain_spinner_ingr, fragment);
+                fragmentTransaction.add(R.id.containerIngrFridge, fragment);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
             }
@@ -118,6 +118,11 @@ public class FFridge extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+        //get addIngr and add it to linear layout
     }
 
     /**

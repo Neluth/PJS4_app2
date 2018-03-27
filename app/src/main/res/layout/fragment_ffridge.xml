@@ -5,59 +5,78 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.recipeit.recipeit.FFridge">
 
-    <!-- TODO: Update blank fragment layout -->
-    <android.support.constraint.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <TextView
-            android:id="@+id/txtVosIngredients"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:fontFamily="@font/cookie"
-            android:textColor="@android:color/black"
-            android:textSize="30sp"
-            android:text="Vos ingrédients"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        android:layout_marginBottom="50dp">
 
         <android.support.constraint.ConstraintLayout
-            android:id="@+id/barre"
-            android:layout_width="80dp"
-            android:layout_height="2dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="8dp"
-            android:background="#AA0909"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtVosIngredients"></android.support.constraint.ConstraintLayout>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/txtVosIngredients"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/cookie"
+                android:textColor="@android:color/black"
+                android:textSize="30sp"
+                android:text="Vos ingrédients"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/barre"
+                android:layout_width="80dp"
+                android:layout_height="2dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp"
+                android:background="#AA0909"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtVosIngredients"></android.support.constraint.ConstraintLayout>
 
 
-        <ImageView
-            android:id="@+id/imgAddIngr"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginTop="8dp"
-            android:src="@drawable/addactive"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnChercherRecette" />
+            <ImageView
+                android:id="@+id/imgAddIngrFridge"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/addactive"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/containerIngrFridge" />
 
-        <Button
-            android:id="@+id/btnChercherRecette"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:text="Chercher des recettes pour vous !"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/barre" />
+            <Button
+                android:id="@+id/btnChercherRecette"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Chercher des recettes pour vous !"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/barre" />
 
-    </android.support.constraint.ConstraintLayout>
+            <LinearLayout
+                android:id="@+id/containerIngrFridge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintTop_toBottomOf="@+id/btnChercherRecette"
+                app:layout_constraintStart_toStartOf="parent">
+
+            </LinearLayout>
+
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
 </FrameLayout>
