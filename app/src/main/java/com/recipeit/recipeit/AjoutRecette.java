@@ -74,15 +74,7 @@ public class AjoutRecette extends AppCompatActivity {
             }
         });
 
-        /*
-        fragmentManager = getSupportFragmentManager();
-        fragmentTransaction = fragmentManager.beginTransaction();
 
-        AddIngredients fragment = new AddIngredients();
-        fragmentTransaction.replace(R.id.contain_spinner_ingr, fragment);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
-        */
 
         ImageView imgAjoutIngr = (ImageView) findViewById(R.id.img_add_ingr);
         imgAjoutIngr.setOnClickListener(new View.OnClickListener() {
@@ -164,18 +156,7 @@ public class AjoutRecette extends AppCompatActivity {
         }
     }
 
-    public void ajoutIngr(View view){
-        /*
-        fragmentManager = getSupportFragmentManager();
-        fragmentTransaction = fragmentManager.beginTransaction();
 
-        AddIngredients fragment = new AddIngredients();
-
-        fragmentTransaction.add(R.id.contain_spinner_ingr, fragment);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
-        */
-    }
 
 
 }
