@@ -11,8 +11,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -29,7 +31,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AjoutRecette extends AppCompatActivity implements AddIngredients.OnFragmentInteractionListener {
+public class AjoutRecette extends AppCompatActivity {
 
     private SeekBar difSK;
     private int p;
@@ -37,6 +39,7 @@ public class AjoutRecette extends AppCompatActivity implements AddIngredients.On
 
     private FragmentTransaction fragmentTransaction;
     private FragmentManager fragmentManager;
+    private int nbIngredients = 0;
 
 
     @Override
@@ -71,6 +74,7 @@ public class AjoutRecette extends AppCompatActivity implements AddIngredients.On
             }
         });
 
+        /*
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
 
@@ -78,6 +82,61 @@ public class AjoutRecette extends AppCompatActivity implements AddIngredients.On
         fragmentTransaction.replace(R.id.contain_spinner_ingr, fragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
+        */
+
+        ImageView imgAjoutIngr = (ImageView) findViewById(R.id.img_add_ingr);
+        imgAjoutIngr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View viewV) {
+                final LinearLayout container = (LinearLayout) findViewById(R.id.contain_spinner_ingr);
+                final View child = View.inflate(getApplicationContext(), R.layout.add_ingredient, null);
+                ViewGroup vgChild = (ViewGroup) child;
+                for (int i = 0; i < vgChild.getChildCount(); i++) {
+                    final View v = vgChild.getChildAt(i);
+                    v.setId(i * 1000 + nbIngredients);
+                    if (v instanceof Spinner) {
+                        ref.child("ingredients").addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                // Is better to use a List, because you don't know the size
+                                // of the iterator returned by dataSnapshot.getChildren() to
+                                // initialize the array
+                                final List<String> ingr = new ArrayList<>();
+
+                                for (DataSnapshot areaSnapshot : dataSnapshot.getChildren()) {
+                                    String name = areaSnapshot.child("name").getValue(String.class);
+                                    ingr.add(name);
+                                    Log.e("ingr", ingr.toString());
+                                }
+
+                                final Spinner ingrSpinner = (Spinner) v;
+                                ArrayAdapter<String> areasAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, ingr);
+                                areasAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                                ingrSpinner.setAdapter(areasAdapter);
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+                    }
+                    if (v instanceof ImageView) {
+                        Log.e("truc", "truc");
+                        v.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Log.e("truc", "truc2");
+                                container.removeView(child);
+                            }
+                        });
+                    }
+
+                }
+                container.addView(child);
+                nbIngredients++;
+            }
+        });
     }
 
     public void ajoutPhotoGallery(View view){
@@ -106,6 +165,7 @@ public class AjoutRecette extends AppCompatActivity implements AddIngredients.On
     }
 
     public void ajoutIngr(View view){
+        /*
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
 
@@ -114,10 +174,8 @@ public class AjoutRecette extends AppCompatActivity implements AddIngredients.On
         fragmentTransaction.add(R.id.contain_spinner_ingr, fragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
+        */
     }
 
-    @Override
-    public void onFragmentInteraction(Uri uri) {
 
-    }
 }
