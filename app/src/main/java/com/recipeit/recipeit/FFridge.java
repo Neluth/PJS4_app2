@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -86,15 +87,73 @@ public class FFridge extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
         final View view = inflater.inflate(R.layout.fragment_ffridge, container, false);
         Button btnChercherRecettes = (Button) view.findViewById(R.id.btnChercherRecette);
         btnChercherRecettes.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v) {
-                // do something
+                // lancer la recherche avec des ingrédients (extension)
             }
         });
+
+        //initialise la listview (remote)
+        final ListView lvIngrFridge = view.findViewById(R.id.listIngrFridge);
+        final ArrayList<String> ingrInFridge;
+        //TODO initialiser String[] avec db
+        final ArrayAdapter<String> lvAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, ingrInFridge);
+        lvIngrFridge.setAdapter(lvAdapter);
+
+        //initialise le spinner
+        final Spinner spIngr = view.findViewById(R.id.spListingr);
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Is better to use a List, because you don't know the size
+                // of the iterator returned by dataSnapshot.getChildren() to
+                // initialize the array
+                final List<String> ingr = new ArrayList<>();
+
+                for (DataSnapshot areaSnapshot : dataSnapshot.getChildren()) {
+                    String name = areaSnapshot.child("name").getValue(String.class);
+                    ingr.add(name);
+                }
+
+
+                ArrayAdapter<String> areasAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, ingr);
+                areasAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spIngr.setAdapter(areasAdapter);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        //En cas de clic sur image ajout
+        ImageView imgAjoutIngr = (ImageView) view.findViewById(R.id.imgAddIngrFridge);
+        imgAjoutIngr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String itemToAdd = spIngr.getSelectedItem().toString();
+                boolean notAdd = false;
+                for(String s : ingrInFridge) {
+                    if(s.equals(itemToAdd)) {
+                        notAdd = true;
+                    }
+                }
+                if(!notAdd) {
+                    ingrInFridge.add(itemToAdd);
+                    lvAdapter.notifyDataSetChanged();
+                    //TODO ajouter à la db
+                }
+
+            }
+        });
+        /*
+
         ImageView imgAjoutIngr = (ImageView) view.findViewById(R.id.imgAddIngrFridge);
         imgAjoutIngr.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -148,6 +207,7 @@ public class FFridge extends Fragment {
                 nbIngredients++;
             }
         });
+        */
         return view;
     }
 
