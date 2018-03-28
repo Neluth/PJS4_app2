@@ -30,13 +30,11 @@ import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link FFridge.OnFragmentInteractionListener} interface
  * to handle interaction events.
  * Use the {@link FFridge#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FFridge extends Fragment implements AddIngredients.OnFragmentInteractionListener{
+public class FFridge extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -187,10 +185,6 @@ public class FFridge extends Fragment implements AddIngredients.OnFragmentIntera
         mListener = null;
     }
 
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-        //get addIngr and add it to linear layout
-    }
 
     /**
      * This interface must be implemented by activities that contain this
