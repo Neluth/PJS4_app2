@@ -40,6 +40,7 @@ public class AjoutRecette extends AppCompatActivity {
     private FragmentTransaction fragmentTransaction;
     private FragmentManager fragmentManager;
     private int nbIngredients = 0;
+    private int nbEtape = 0;
 
 
     @Override
@@ -75,7 +76,7 @@ public class AjoutRecette extends AppCompatActivity {
         });
 
 
-
+        //ajout d'une vie ingrédient avec une id dans le layout
         ImageView imgAjoutIngr = (ImageView) findViewById(R.id.img_add_ingr);
         imgAjoutIngr.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,9 +84,11 @@ public class AjoutRecette extends AppCompatActivity {
                 final LinearLayout container = (LinearLayout) findViewById(R.id.contain_spinner_ingr);
                 final View child = View.inflate(getApplicationContext(), R.layout.add_ingredient, null);
                 ViewGroup vgChild = (ViewGroup) child;
-                for (int i = 0; i < vgChild.getChildCount(); i++) {
+                for (int i = 1; i < vgChild.getChildCount(); i++) {
                     final View v = vgChild.getChildAt(i);
-                    v.setId(i * 1000 + nbIngredients);
+                    v.setId((i + 1) * 1000 + nbIngredients);
+
+                    //récupération de tout les ingrédients dans un spinner
                     if (v instanceof Spinner) {
                         ref.child("ingredients").addValueEventListener(new ValueEventListener() {
                             @Override
@@ -114,11 +117,9 @@ public class AjoutRecette extends AppCompatActivity {
                         });
                     }
                     if (v instanceof ImageView) {
-                        Log.e("truc", "truc");
                         v.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                Log.e("truc", "truc2");
                                 container.removeView(child);
                             }
                         });
@@ -127,6 +128,33 @@ public class AjoutRecette extends AppCompatActivity {
                 }
                 container.addView(child);
                 nbIngredients++;
+            }
+        });
+
+        //ajout d'une étape avec une id
+        ImageView addEtape = (ImageView) findViewById(R.id.img_add_etape);
+
+        addEtape.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final LinearLayout holderEtapes = (LinearLayout) findViewById(R.id.contain_etapes);
+                final View viewEtape = View.inflate(getApplicationContext(), R.layout.add_etape, null);
+                ViewGroup vgEtape = (ViewGroup) viewEtape;
+                for (int i = 0; i < vgEtape.getChildCount(); i++) {
+                    final View viewChild = vgEtape.getChildAt(i);
+                    viewChild.setId((i + 1) * 100 + nbEtape);
+
+                    if (viewChild instanceof ImageView) {
+                        viewChild.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                holderEtapes.removeView(viewEtape);
+                            }
+                        });
+                    }
+                }
+                holderEtapes.addView(viewEtape);
+                nbEtape++;
             }
         });
     }
