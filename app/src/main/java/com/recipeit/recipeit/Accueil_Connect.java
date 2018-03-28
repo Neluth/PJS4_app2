@@ -41,6 +41,18 @@ public class Accueil_Connect extends AppCompatActivity implements FFridge.OnFrag
         String pseudo = user.getEmail().toString();
         String [] split = pseudo.split("@", 2);
         pseudoTV.setText(split[0]);
+
+        //cas ou l'activité et lancé par le bouton fridge de l'espace perso
+        try {
+            Boolean goToFridge = getIntent().getExtras().getBoolean("forFridge");
+            if(goToFridge) {
+                findViewById(R.id.fridge).performClick();
+            }
+        }
+        catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+
     }
 
 

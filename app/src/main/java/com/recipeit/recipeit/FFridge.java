@@ -99,16 +99,6 @@ public class FFridge extends Fragment {
         imgAjoutIngr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View viewV) {
-                /*
-                fragmentManager = getActivity().getSupportFragmentManager();
-                fragmentTransaction = fragmentManager.beginTransaction();
-
-                AddIngredients fragment = new AddIngredients();
-
-                fragmentTransaction.add(R.id.containerIngrFridge, fragment);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
-                */
                 final LinearLayout container = (LinearLayout) view.findViewById(R.id.containerIngrFridge);
                 final View child = View.inflate(getContext(), R.layout.add_ingredient, null);
                 ViewGroup vgChild = (ViewGroup) child;

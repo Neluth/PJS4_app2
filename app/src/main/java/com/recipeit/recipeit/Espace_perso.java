@@ -34,4 +34,10 @@ public class Espace_perso extends AppCompatActivity {
         Intent inte = new Intent(Espace_perso.this, AjoutRecette.class);
         startActivity(inte);
     }
+
+    public void modifFridge(View view){
+        Intent inte = new Intent(Espace_perso.this, Accueil_Connect.class);
+        inte.putExtra("forFridge", true);
+        startActivity(inte);
+    }
 }

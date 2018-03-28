@@ -1,15 +1,18 @@
 package com.recipeit.recipeit;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.synnapps.carouselview.CarouselView;
+import com.synnapps.carouselview.ImageClickListener;
 import com.synnapps.carouselview.ImageListener;
 
 import java.util.ArrayList;
@@ -41,7 +44,8 @@ public class Faccueil extends Fragment {
             imageView.setImageResource(sampleImages[position]);
         }
     };
-    int[] sampleImages = {R.drawable.default_carousel, R.drawable.default_carousel, R.drawable.default_carousel, R.drawable.default_carousel, R.drawable.default_carousel};
+    int[] sampleImages = {R.drawable.default_carousel, R.drawable.default_carousel, R.drawable.default_carousel};
+    String[] idRecetteImages = {"1", "2", "3"};
 
     private static ArrayList<ImageView> topRecettes;
     private static ArrayList<ImageView> recettesDuMoment;
@@ -86,8 +90,24 @@ public class Faccueil extends Fragment {
         //initialiser les images top recettes et recettes du moment
         carouselView = (CarouselView) view.findViewById(R.id.carouselView);
         carouselView.setPageCount(sampleImages.length);
-
         carouselView.setImageListener(imageListener);
+        //démarre une activité recette en lui donnant l'id d'une recette
+        carouselView.setImageClickListener(new ImageClickListener() {
+            @Override
+            public void onClick(int position) {
+                //Log.e("truc", getActivity().getLocalClassName());
+                Intent intentRecette;
+                if(getActivity().getLocalClassName().equals("Accueil_Connect") ) {
+                    intentRecette = new Intent(getActivity(), Accueil_Connect.class);
+                }
+                else {
+                    intentRecette = new Intent(getActivity(), Accueil.class);
+                }
+                intentRecette.putExtra("recipeFromId", idRecetteImages[position]);
+                startActivity(intentRecette);
+                //TODO récupérer cet intent dans l'Accueil et l'Accueil_Connect
+            }
+        });
         // Inflate the layout for this fragment
         return view;
     }

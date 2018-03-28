@@ -62,19 +62,25 @@
             android:id="@+id/textViewAllergie"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:fontFamily="@font/cookie"
             android:text="@string/titre_espace_parametre_alergie"
             android:textAlignment="center"
             android:textSize="25dp"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/contain_options1" />
 
         <CheckBox
             android:id="@+id/cBAllergie"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
             android:text="non"
             android:textSize="15dp"
-            app:layout_constraintRight_toRightOf="@id/contain_options1"/>
+            app:layout_constraintRight_toRightOf="@id/contain_options1"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </android.support.constraint.ConstraintLayout>
 
@@ -91,34 +97,41 @@
             android:id="@+id/textResetMdp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:fontFamily="@font/cookie"
             android:text="@string/titre_espace_parametre_resetmdp"
             android:textAlignment="center"
             android:textSize="25dp"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/contain_options2" />
 
         <EditText
             android:id="@+id/oldMdp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:ems="10"
             android:hint="Ancien mot de passe"
             android:inputType="textPassword"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textResetMdp" />
 
         <EditText
             android:id="@+id/newMdp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:ems="10"
             android:hint="Nouveau mot de passe"
             android:inputType="textPassword"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/oldMdp" />
 
         <Button
             android:id="@+id/btnReset"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="8dp"
             android:onClick="reset"
             android:text="Reset"
             app:layout_constraintBottom_toTopOf="@id/contain_options2"
