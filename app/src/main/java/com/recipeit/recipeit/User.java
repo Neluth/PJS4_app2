@@ -5,6 +5,7 @@ package com.recipeit.recipeit;
  */
 
 public class User {
+    private boolean allergique;
     public String username;
     public String email;
     public String createdAt;
@@ -15,6 +16,7 @@ public class User {
     }
 
     public User(String username, String email, String createdAt, String password) {
+        this.allergique = false;
         this.username = username;
         this.email = email;
         this.createdAt = createdAt;

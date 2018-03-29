@@ -30,6 +30,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     compile 'com.google.firebase:firebase-database:10.2.1'
     compile 'com.synnapps:carouselview:0.1.4'
+    compile 'com.google.firebase:firebase-storage:10.2.1'
 }
 
 
