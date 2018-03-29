@@ -1,5 +1,6 @@
 package com.recipeit.recipeit;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -92,6 +94,7 @@ public class FFridge extends Fragment {
         userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -191,6 +194,25 @@ public class FFridge extends Fragment {
             }
         });
 
+        //permet à la listview de scroller dans une scrollview
+        lvIngrFridge.setOnTouchListener(new ListView.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                int action = event.getAction();
+                switch (action) {
+                    case MotionEvent.ACTION_DOWN:
+                        v.getParent().requestDisallowInterceptTouchEvent(true);
+                        break;
+
+                    case MotionEvent.ACTION_UP:
+                        v.getParent().requestDisallowInterceptTouchEvent(false);
+                        break;
+                }
+                v.onTouchEvent(event);
+                return true;
+            }
+        });
+
         return view;
     }
 
@@ -251,6 +273,7 @@ public class FFridge extends Fragment {
                     if (name.equals(ingredient)) {
                         //return snapshot.getKey();
                         refFridge.child(snapshot.getKey()).setValue(snapshot.child("name").getValue());
+                        lvAdapter.notifyDataSetInvalidated();
                     }
                 }
             }
