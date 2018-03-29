@@ -19,10 +19,13 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -43,13 +46,18 @@ public class FFridge extends Fragment {
     private FragmentTransaction fragmentTransaction;
     private FragmentManager fragmentManager;
     private int nbIngredients = 0;
+    private FirebaseAuth authFirebase;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
-    private DatabaseReference ref;
+    private DatabaseReference refFridge;
+    private DatabaseReference refIngr;
+    private String userId;
+    private ArrayList<String> mesIngredients;
+    private ArrayAdapter<String> lvAdapter;
 
     public FFridge() {
         // Required empty public constructor
@@ -80,7 +88,7 @@ public class FFridge extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        ref = FirebaseDatabase.getInstance().getReference("ingredients");
+        userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
     }
 
     @Override
@@ -100,14 +108,35 @@ public class FFridge extends Fragment {
 
         //initialise la listview (remote)
         final ListView lvIngrFridge = view.findViewById(R.id.listIngrFridge);
-        final ArrayList<String> ingrInFridge;
-        //TODO initialiser String[] avec db
-        final ArrayAdapter<String> lvAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, ingrInFridge);
-        lvIngrFridge.setAdapter(lvAdapter);
+        //final ArrayList<String> ingrInFridge = new ArrayList<String>();
+        
+        
+        refFridge = FirebaseDatabase.getInstance().getReference("users/" + userId + "/fridge" );//.child(userId).child("fridge");
+        refFridge.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                ArrayList<String> ingrInFridge = new ArrayList<String>();
+                for (DataSnapshot areaSnapshot : dataSnapshot.getChildren()) {
+                    String ingrFridge = areaSnapshot.getValue(String.class);
+                    ingrInFridge.add(ingrFridge);
+
+                }
+                setIngrInFridge(ingrInFridge);
+                lvAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, ingrInFridge);
+                lvIngrFridge.setAdapter(lvAdapter);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
 
         //initialise le spinner
         final Spinner spIngr = view.findViewById(R.id.spListingr);
-        ref.addValueEventListener(new ValueEventListener() {
+        refIngr = FirebaseDatabase.getInstance().getReference("ingredients");
+        refIngr.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Is better to use a List, because you don't know the size
@@ -139,76 +168,28 @@ public class FFridge extends Fragment {
             public void onClick(View view) {
                 String itemToAdd = spIngr.getSelectedItem().toString();
                 boolean notAdd = false;
-                for(String s : ingrInFridge) {
+                for(String s : getIngrInFridge()) {
                     if(s.equals(itemToAdd)) {
                         notAdd = true;
                     }
                 }
                 if(!notAdd) {
-                    ingrInFridge.add(itemToAdd);
+                    addIngrInRemoteFridge(itemToAdd);
                     lvAdapter.notifyDataSetChanged();
-                    //TODO ajouter à la db
+
                 }
 
             }
         });
-        /*
-
-        ImageView imgAjoutIngr = (ImageView) view.findViewById(R.id.imgAddIngrFridge);
-        imgAjoutIngr.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View viewV) {
-                final LinearLayout container = (LinearLayout) view.findViewById(R.id.containerIngrFridge);
-                final View child = View.inflate(getContext(), R.layout.add_ingredient, null);
-                ViewGroup vgChild = (ViewGroup) child;
-                for(int i = 0; i < vgChild.getChildCount(); i++) {
-                    final View v = vgChild.getChildAt(i);
-                    v.setId(i*1000+nbIngredients);
-                    if( v instanceof  Spinner) {
-                        ref.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                // Is better to use a List, because you don't know the size
-                                // of the iterator returned by dataSnapshot.getChildren() to
-                                // initialize the array
-                                final List<String> ingr = new ArrayList<>();
-
-                                for (DataSnapshot areaSnapshot : dataSnapshot.getChildren()) {
-                                    String name = areaSnapshot.child("name").getValue(String.class);
-                                    ingr.add(name);
-                                }
-
-                                final Spinner ingrSpinner = (Spinner) v;
-                                ArrayAdapter<String> areasAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, ingr);
-                                areasAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                                ingrSpinner.setAdapter(areasAdapter);
-                            }
-
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-
-                            }
-                        });
-                    }
-                    if(v instanceof ImageView) {
-                        Log.e("truc", "truc");
-                        v.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                Log.e("truc", "truc2");
-                                container.removeView(child);
-                            }
-                        });
-                    }
-
-                }
-                Log.e("truc", "truc");
-                container.addView(child);
-                nbIngredients++;
-            }
-        });
-        */
         return view;
+    }
+
+    private ArrayList<String> getIngrInFridge() {
+        return mesIngredients;
+    }
+
+    private void setIngrInFridge(ArrayList<String> ingrInFridge) {
+        this.mesIngredients = ingrInFridge;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -249,5 +230,25 @@ public class FFridge extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    private void addIngrInRemoteFridge(final String ingredient) {
+        refIngr.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    String name = snapshot.child("name").getValue(String.class);
+                    if (name == ingredient) {
+                        //return snapshot.getKey();
+                        refFridge.child(snapshot.getKey()).setValue(snapshot.child("name").getValue());
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 }
