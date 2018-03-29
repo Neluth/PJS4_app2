@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -181,6 +182,15 @@ public class FFridge extends Fragment {
 
             }
         });
+
+        lvIngrFridge.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                removeIngrInRemoteFridge(getIngrInFridge().get(i));
+            }
+        });
+
         return view;
     }
 
@@ -238,9 +248,28 @@ public class FFridge extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     String name = snapshot.child("name").getValue(String.class);
-                    if (name == ingredient) {
+                    if (name.equals(ingredient)) {
                         //return snapshot.getKey();
                         refFridge.child(snapshot.getKey()).setValue(snapshot.child("name").getValue());
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void removeIngrInRemoteFridge(final String ingredient) {
+        refIngr.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    String name = snapshot.child("name").getValue(String.class);
+                    if (name.equals(ingredient)) {
+                        refFridge.child(snapshot.getKey()).removeValue();
                     }
                 }
             }
