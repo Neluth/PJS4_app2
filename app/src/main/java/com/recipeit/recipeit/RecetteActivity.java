@@ -96,8 +96,16 @@ public class RecetteActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         Log.d("note", ""+ dataSnapshot);
-                        double note = (double) dataSnapshot.child("averageRating").getValue();
-                        txt_v_note.setText("" + note);
+                        Object note = dataSnapshot.child("averageRating").getValue();
+                        if(note != null){
+                            if(note instanceof Double){
+                                note = (double) note;
+                            }else{
+                                note = (long) note;
+                            }
+                            txt_v_note.setText("" + note);
+                        }
+
 
                     }
 
@@ -135,23 +143,33 @@ public class RecetteActivity extends AppCompatActivity {
      **** Hack to fix the issue of not showing all the items of the ListView
      **** when placed inside a ScrollView  ****/
     public static void setListViewHeightBasedOnChildren(ListView listView) {
+
         ListAdapter listAdapter = listView.getAdapter();
-        if (listAdapter == null)
+        if (listAdapter == null) {
+            Log.d("BLAH", "setListViewHeightBasedOnChildren: Pas de listAdapter");
             return;
+        }
+
+        Log.d("BLAH", "setListViewHeightBasedOnChildren: T_T");
 
         int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.UNSPECIFIED);
         int totalHeight = 0;
         View view = null;
         for (int i = 0; i < listAdapter.getCount(); i++) {
             view = listAdapter.getView(i, view, listView);
-            if (i == 0)
+            if (i == 0) {
                 view.setLayoutParams(new ViewGroup.LayoutParams(desiredWidth, ViewGroup.LayoutParams.WRAP_CONTENT));
+                Log.d("BLAH", "setListViewHeightBasedOnChildren: pas d'item");
+
+            }
 
             view.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
             totalHeight += view.getMeasuredHeight();
         }
         ViewGroup.LayoutParams params = listView.getLayoutParams();
+        Log.d("BLAH", "setListViewHeightBasedOnChildren: ////"+listView.getChildCount());
         params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+        Log.d("BLAH", "setListViewHeightBasedOnChildren: T_T"+params.height);
         listView.setLayoutParams(params);
     }
 }

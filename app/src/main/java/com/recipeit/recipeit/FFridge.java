@@ -2,6 +2,7 @@ package com.recipeit.recipeit;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
@@ -59,7 +60,7 @@ public class FFridge extends Fragment {
     private DatabaseReference refFridge;
     private DatabaseReference refIngr;
     private String userId;
-    private ArrayList<String> mesIngredients;
+    private List<String> mesIngredients;
     private ArrayAdapter<String> lvAdapter;
 
     public FFridge() {
@@ -106,7 +107,30 @@ public class FFridge extends Fragment {
         {
             @Override
             public void onClick(View v) {
-                // lancer la recherche avec des ingrédients (extension)
+                refFridge = FirebaseDatabase.getInstance().getReference("users/" + userId + "/fridge" );//.child(userId).child("fridge");
+                refFridge.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+
+                        ArrayList<String> ingrInFridge = new ArrayList<String>();
+
+                        for (DataSnapshot areaSnapshot : dataSnapshot.getChildren()) {
+                            String ingrFridge = areaSnapshot.getValue(String.class);
+                            ingrInFridge.add(ingrFridge);
+                        }
+
+                        Intent intent = new Intent(getContext(), RechercheActivity.class);
+                        intent.putExtra("INGS", ingrInFridge);// if its string type
+                        startActivity(intent);
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
             }
         });
 
@@ -216,7 +240,7 @@ public class FFridge extends Fragment {
         return view;
     }
 
-    private ArrayList<String> getIngrInFridge() {
+    private List<String> getIngrInFridge() {
         return mesIngredients;
     }
 

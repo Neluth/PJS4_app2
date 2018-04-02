@@ -1,14 +1,15 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:algolia="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:algolia="http://schemas.android.com/apk/res-auto"
-    tools:context="com.recipeit.recipeit.Frecherche">
+    tools:context="com.recipeit.recipeit.RechercheActivity">
 
     <android.support.constraint.ConstraintLayout
-        android:layout_height="match_parent"
-        android:layout_width="match_parent">
+        android:id="@+id/recherche_cl"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/txtRechercheAvancee"
@@ -18,12 +19,12 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/cookie"
+            android:text="Recherche avancée"
             android:textColor="@android:color/black"
             android:textSize="30sp"
-            android:text="Recherche avancée"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/barre"
@@ -36,27 +37,186 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtRechercheAvancee" />
 
-
-        <com.algolia.instantsearch.ui.views.SearchBox
-            android:id="@+id/searchBox"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/searchBoxLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:queryHint="Search"
-            app:layout_constraintTop_toBottomOf="@+id/barre"
-            algolia:autofocus="true"
-            algolia:submitButtonEnabled="false" />
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@+id/barre">
+
+            <com.algolia.instantsearch.ui.views.SearchBox
+                android:id="@+id/searchBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="9"
+                android:queryHint="Search"
+                algolia:autofocus="true"
+                algolia:submitButtonEnabled="false" />
+
+            <Button
+                android:id="@+id/btnFilters"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:onClick="onClickFilter"
+                android:text="Filtres" />
+
+
+        </LinearLayout>
+
 
         <com.algolia.instantsearch.ui.views.Hits
             android:id="@+id/hits"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             algolia:autoHideKeyboard="true"
-            algolia:infiniteScroll="true"
-            app:layout_constraintTop_toBottomOf="@+id/searchBox"
             algolia:hitsPerPage="10"
+            algolia:itemLayout="@layout/hits_item"
             algolia:remainingItemsBeforeLoading="10"
-            algolia:itemLayout="@layout/hits_item"/>
+            app:layout_constraintTop_toBottomOf="@+id/searchBoxLayout"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
+        <TextView
+            android:id="@android:id/empty"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/searchBoxLayout"
+            android:text="Aucun résultat."
+            android:visibility="gone" />
+
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/filters"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorFilterBackground"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/txtFilter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/cookie"
+            android:text="Filtrer"
+            android:textSize="37dp" />
+
+        <ScrollView
+            android:id="@+id/scroll_view"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/btnClosePopup"
+            app:layout_constraintTop_toBottomOf="@id/txtFilter"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/llOrigin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/txtOrigin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/cookie"
+                        android:text="Origine"
+                        android:textSize="27sp" />
+
+                    <com.recipeit.recipeit.RefinementListCustom
+                        android:id="@+id/origin_refinements"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/ralewaylight"
+                        android:textSize="13sp"
+                        algolia:attribute="origin"
+                        algolia:limit="10"
+                        algolia:operation="or"
+                        algolia:sortBy="['isRefined', 'count:desc']">
+
+                    </com.recipeit.recipeit.RefinementListCustom>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llType"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:orientation="vertical"
+                    app:layout_constraintTop_toBottomOf="@id/llOrigin">
+
+                    <TextView
+                        android:id="@+id/txtType"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/cookie"
+                        android:text="Type de plats"
+                        android:textColor="@color/noir"
+                        android:textSize="27sp" />
+
+                    <com.recipeit.recipeit.RefinementListCustom
+                        android:id="@+id/type_refinements"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="13sp"
+                        algolia:attribute="type"
+                        algolia:limit="10"
+                        algolia:operation="or"
+                        algolia:sortBy="['isRefined', 'count:desc']" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llIngredient"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:orientation="vertical"
+                    app:layout_constraintTop_toBottomOf="@id/llType">
+
+                    <TextView
+                        android:id="@+id/txtIngredients"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/cookie"
+                        android:text="Ingrédients"
+                        android:textSize="27sp" />
+
+                    <com.recipeit.recipeit.RefinementListCustom
+                        android:id="@+id/ing_refinements"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="13sp"
+                        algolia:attribute="ingredients.name"
+                        algolia:limit="25"
+                        algolia:operation="or"
+                        algolia:sortBy="['isRefined', 'count:desc']" />
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+
+
+        <Button
+            android:id="@+id/btnClosePopup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@color/rouge"
+            android:fontFamily="@font/ralewaylight"
+            android:onClick="onClickClose"
+            android:padding="7dp"
+            android:text="Rechercher"
+            android:textColor="@color/blanc"
+            app:layout_constraintBottom_toBottomOf="parent" />
     </android.support.constraint.ConstraintLayout>
 
 </FrameLayout>
