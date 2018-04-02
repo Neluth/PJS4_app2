@@ -34,7 +34,7 @@
             android:background="#AA0909"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtRechercheAvancee"></android.support.constraint.ConstraintLayout>
+            app:layout_constraintTop_toBottomOf="@+id/txtRechercheAvancee" />
 
 
         <ImageView

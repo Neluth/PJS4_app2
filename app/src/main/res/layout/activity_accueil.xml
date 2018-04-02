@@ -108,7 +108,8 @@
                             android:fontFamily="@font/juliussansone"
                             android:hint="@string/hint_recherche"
                             android:inputType="text"
-                            android:textSize="17sp" />
+                            android:textSize="17sp"
+                            android:imeOptions="actionDone"/>
                     </LinearLayout>
 
                     <ImageView

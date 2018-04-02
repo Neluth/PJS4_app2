@@ -69,7 +69,7 @@
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/contain_listview_fridge"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
+                android:layout_height="200dp"
                 app:layout_constraintTop_toBottomOf="@+id/btnChercherRecette">
 
                 <ListView
