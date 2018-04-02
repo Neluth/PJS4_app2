@@ -212,7 +212,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guidelineMenu2"
             app:layout_constraintTop_toTopOf="parent"
-            android:onClick="FragRecherche"
+            android:onClick="recherche"
             app:srcCompat="@drawable/more" />
 
     </android.support.constraint.ConstraintLayout>

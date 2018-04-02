@@ -8,6 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.algolia.instantsearch.helpers.InstantSearch;
+import com.algolia.instantsearch.helpers.Searcher;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -22,6 +25,12 @@ public class Frecherche extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
+    private final String    ALGOLIA_APP_ID= "S0Z5F94KGN",
+                            ALGOLIA_SEARCH_API_KEY= "62bf79ebd94fd5a4b8a76dc851da6f47",
+                            ALGOLIA_INDEX_NAME= "recipe";
+
+    private Searcher searcher;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -58,12 +67,16 @@ public class Frecherche extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        searcher = Searcher.create(ALGOLIA_APP_ID, ALGOLIA_SEARCH_API_KEY, ALGOLIA_INDEX_NAME);
+
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         return inflater.inflate(R.layout.fragment_frecherche, container, false);
     }
 
@@ -87,6 +100,7 @@ public class Frecherche extends Fragment {
 
     @Override
     public void onDetach() {
+        searcher.destroy();
         super.onDetach();
         mListener = null;
     }

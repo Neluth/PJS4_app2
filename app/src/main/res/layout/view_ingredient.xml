@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    android:padding="10dp"
+    android:id="@+id/Relative">
+
+    <ImageView
+        android:id="@+id/iconePlus"
+        android:layout_width="20sp"
+        android:layout_height="20sp"
+        android:src="@drawable/addactive"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="@font/ralewayregular"
+        />
+
+    <TextView
+        android:id="@+id/txtQuantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Title"
+        android:layout_marginStart="10dp"
+        android:textColor="@android:color/black"
+        android:fontFamily="@font/ralewayregular"
+        app:layout_constraintStart_toEndOf="@+id/iconePlus"/>
+
+    <TextView
+        android:id="@+id/txtDe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="de"
+        android:fontFamily="@font/ralewayregular"
+        android:textColor="@android:color/black"
+        app:layout_constraintStart_toEndOf="@+id/txtQuantity" />
+
+    <TextView
+        android:id="@+id/txtName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Date"
+        android:layout_marginStart="10dp"
+        android:textColor="@android:color/black"
+        android:fontFamily="@font/ralewayregular"
+        app:layout_constraintStart_toEndOf="@+id/txtDe" />
+
+</android.support.constraint.ConstraintLayout>

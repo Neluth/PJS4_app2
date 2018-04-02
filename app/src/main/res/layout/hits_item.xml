@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:algolia="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="FragRecette">
+        <LinearLayout
+            android:id="@+id/thumbnail_image_box"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="128dp"
+            android:minWidth="128dp">
+
+            <ImageView
+                android:id="@+id/product_image"
+                android:layout_width="128dp"
+                android:layout_height="128dp"
+                android:adjustViewBounds="true"
+                android:layout_gravity="center_horizontal"
+                android:scaleType="center"
+                algolia:attribute='@{"thumbnail"}'
+                algolia:prefix='@{"https://storage.googleapis.com/pjs4-test.appspot.com/"}'/>
+        </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/recipe_name"
+            algolia:attribute='@{"title"}'
+            android:layout_toEndOf="@id/thumbnail_image_box"
+            algolia:highlighted='@{true}'/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/recipe_id"
+            algolia:attribute='@{"objectID"}'
+            android:layout_toEndOf="@id/thumbnail_image_box"
+            android:visibility="gone"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@id/recipe_name"
+            android:layout_toRightOf="@id/thumbnail_image_box">
+
+            <TextView
+                android:id="@+id/recipe_time_hour"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                algolia:attribute='@{"time.hour"}' />
+
+            <TextView
+                android:id="@+id/txthour"
+                android:text="h"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/recipe_time_minute"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                algolia:attribute='@{"time.minute"}' />
+
+            <TextView
+                android:id="@+id/txtminute"
+                android:text="min"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+    </RelativeLayout>
+</layout>

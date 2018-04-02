@@ -105,6 +105,11 @@ public class Accueil_Connect extends AppCompatActivity implements FFridge.OnFrag
         img.setImageResource(R.drawable.world);
     }
 
+    public void recherche(View view){
+        Intent searchPage = new Intent(Accueil_Connect.this, RechercheActivity.class);
+        startActivity(searchPage);
+    }
+
     public void FragRecherche(View view){
         Frecherche fragment = new Frecherche();
         fragmentManager = getSupportFragmentManager();

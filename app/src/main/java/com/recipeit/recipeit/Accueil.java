@@ -62,6 +62,11 @@ public class Accueil extends AppCompatActivity implements Faccueil.OnFragmentInt
         img.setImageResource(R.drawable.woldactive);
     }
 
+    public void recherche(View view){
+        Intent searchPage = new Intent(Accueil.this, RechercheActivity.class);
+        startActivity(searchPage);
+    }
+
     public void FragAccueil(View view){
         Faccueil fragment = new Faccueil();
         fragmentManager = getSupportFragmentManager();

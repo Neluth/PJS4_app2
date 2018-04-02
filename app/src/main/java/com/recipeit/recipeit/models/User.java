@@ -1,4 +1,4 @@
-package com.recipeit.recipeit;
+package com.recipeit.recipeit.models;
 
 /**
  * Created by Elena on 13/03/2018.

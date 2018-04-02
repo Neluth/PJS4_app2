@@ -1,4 +1,4 @@
-package com.recipeit.recipeit;
+package com.recipeit.recipeit.models;
 
 import com.google.firebase.database.Exclude;
 
@@ -11,6 +11,10 @@ import java.util.Map;
  */
 
 public class Time {
+
+    public String hour;
+    public String minute;
+
     public Time(){
     }
 

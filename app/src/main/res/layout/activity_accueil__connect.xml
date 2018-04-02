@@ -264,7 +264,7 @@
             android:layout_centerHorizontal="true"
             android:layout_weight="1"
             android:contentDescription="@string/desc_more"
-            android:onClick="FragRecherche"
+            android:onClick="recherche"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/guidelineMenu3"

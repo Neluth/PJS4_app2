@@ -1,4 +1,4 @@
-package com.recipeit.recipeit;
+package com.recipeit.recipeit.models;
 
 import com.google.firebase.database.Exclude;
 
@@ -11,6 +11,10 @@ import java.util.Map;
  */
 
 public class Ingredients {
+
+    public String name;
+    public int ing;
+    public String quantity;
 
     public Ingredients(){}
 

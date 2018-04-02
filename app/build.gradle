@@ -9,6 +9,8 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+        dataBinding.enabled true
     }
     buildTypes {
         release {
@@ -16,6 +18,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
 }
 
 dependencies {
@@ -31,7 +34,14 @@ dependencies {
     compile 'com.google.firebase:firebase-database:10.2.1'
     compile 'com.synnapps:carouselview:0.1.4'
     compile 'com.google.firebase:firebase-storage:10.2.1'
+    compile 'com.algolia:instantsearch-android:1.+'
+    compile 'org.greenrobot:eventbus:3.0.0'
+    compile 'com.android.support:multidex:1.0.0'
+    compile 'com.squareup.picasso:picasso:2.5.2'
 }
+
+
+
 
 
 

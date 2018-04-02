@@ -1,6 +1,5 @@
 package com.recipeit.recipeit;
 
-import android.app.PendingIntent;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -9,8 +8,6 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -39,8 +36,10 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.recipeit.recipeit.models.Ingredients;
+import com.recipeit.recipeit.models.Recettes;
+import com.recipeit.recipeit.models.Time;
 
-import java.text.Normalizer;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -290,8 +289,10 @@ public class AjoutRecette extends AppCompatActivity {
 
                 String key =  ref.child("recipes").push().getKey();
                 String img = key + ".jpg";
-                Recettes recette = new Recettes(formattedDate, p, slug.toLowerCase(),
-                        nom, userId, img);
+                Recettes recette = null;
+                // FIXME
+                /*new Recettes(formattedDate, p, slug.toLowerCase(),
+                        nom, userId, img);*/
                 ref.child("recipes").child(key).setValue(recette);
                 Time time = new Time();
                 ref.child("recipes").child(key).child("time").setValue(time.toMap(txtHour.getText().toString(), txtMinute.getText().toString()));
