@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class Accueil extends AppCompatActivity implements Faccueil.OnFragmentInteractionListener, FVoyage.OnFragmentInteractionListener, Frecherche.OnFragmentInteractionListener{
+public class Accueil extends AppCompatActivity implements Faccueil.OnFragmentInteractionListener, FVoyage.OnFragmentInteractionListener{
 
     private FragmentTransaction fragmentTransaction;
     private FragmentManager fragmentManager;
@@ -85,23 +85,6 @@ public class Accueil extends AppCompatActivity implements Faccueil.OnFragmentInt
         img.setImageResource(R.drawable.world);
     }
 
-    public void FragRecherche(View view){
-        Frecherche fragment = new Frecherche();
-        fragmentManager = getSupportFragmentManager();
-        fragmentTransaction = fragmentManager.beginTransaction();
-
-        fragmentTransaction.replace(R.id.contain_fragment, fragment);
-        fragmentTransaction.commit();
-
-        ImageView img = findViewById(R.id.home);
-        img.setImageResource(R.drawable.home);
-
-        img = findViewById(R.id.recherche);
-        img.setImageResource(R.drawable.moreactive);
-
-        img = findViewById(R.id.voyage);
-        img.setImageResource(R.drawable.world);
-    }
 
     @Override
     public void onFragmentInteraction(Uri uri) {

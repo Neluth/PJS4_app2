@@ -31,6 +31,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
+import com.recipeit.recipeit.models.Recettes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -152,6 +153,7 @@ public class FFridge extends Fragment {
                 setIngrInFridge(ingrInFridge);
                 lvAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, ingrInFridge);
                 lvIngrFridge.setAdapter(lvAdapter);
+                RecetteActivity.setListViewHeightBasedOnChildren(lvIngrFridge);
             }
 
             @Override

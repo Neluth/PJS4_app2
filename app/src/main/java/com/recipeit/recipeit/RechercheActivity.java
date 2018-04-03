@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import com.algolia.instantsearch.helpers.InstantSearch;
 import com.algolia.instantsearch.helpers.Searcher;
+import com.algolia.instantsearch.ui.views.SearchBox;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,8 +63,8 @@ public class RechercheActivity extends AppCompatActivity{
         Bundle extras = intent.getExtras();
         if (extras != null) {
             if(extras.containsKey("estSimple")) {
-                //TODO recherche simple
-                extras.getString("estSimple");
+                SearchBox sb = findViewById(R.id.searchBox);
+                sb.setQuery(extras.getString("estSimple"), true);
             }
             if (extras.containsKey("estAv")) {
                 if (extras.getBoolean("estAv")) {

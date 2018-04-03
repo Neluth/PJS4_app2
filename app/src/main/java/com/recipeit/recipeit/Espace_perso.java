@@ -4,11 +4,18 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.recipeit.recipeit.R;
+import com.recipeit.recipeit.models.User;
+import com.squareup.picasso.Picasso;
 
 public class Espace_perso extends AppCompatActivity {
     private String mail;
@@ -18,11 +25,21 @@ public class Espace_perso extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_espace_perso);
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        TextView txt = findViewById(R.id.titreEspaceP2);
-        mail = user.getEmail().toString();
-        String [] pseudo= mail.split("@", 2);
-        txt.append(" " + pseudo[0]);
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        final TextView txt = findViewById(R.id.titreEspaceP2);
+
+        FirebaseDatabase.getInstance().getReference("users").child(uid).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                User user = dataSnapshot.getValue(User.class);
+                txt.append("" + user.username);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     public void parametre(View view){

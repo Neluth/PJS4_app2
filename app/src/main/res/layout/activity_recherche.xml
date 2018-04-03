@@ -51,7 +51,7 @@
                 android:layout_weight="9"
                 android:queryHint="Search"
                 algolia:autofocus="true"
-                algolia:submitButtonEnabled="false" />
+                algolia:submitButtonEnabled="true" />
 
             <Button
                 android:id="@+id/btnFilters"

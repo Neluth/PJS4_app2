@@ -16,13 +16,21 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.recipeit.recipeit.models.User;
+import com.squareup.picasso.Picasso;
 
-public class Accueil_Connect extends AppCompatActivity implements FFridge.OnFragmentInteractionListener, Faccueil.OnFragmentInteractionListener, FVoyage.OnFragmentInteractionListener, Frecherche.OnFragmentInteractionListener{
+public class Accueil_Connect extends AppCompatActivity implements FFridge.OnFragmentInteractionListener, Faccueil.OnFragmentInteractionListener, FVoyage.OnFragmentInteractionListener{
 
     private FragmentTransaction fragmentTransaction;
     private FragmentManager fragmentManager;
-    private FirebaseUser user;
+    private String uid;
     private FirebaseAuth auth;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,12 +46,30 @@ public class Accueil_Connect extends AppCompatActivity implements FFridge.OnFrag
         fragmentTransaction.commit();
 
         auth = FirebaseAuth.getInstance();
-        user = auth.getCurrentUser();
+        uid = auth.getCurrentUser().getUid();
 
-        TextView pseudoTV = findViewById(R.id.pseudo);
-        String pseudo = user.getEmail().toString();
-        String [] split = pseudo.split("@", 2);
-        pseudoTV.setText(split[0]);
+        FirebaseDatabase.getInstance().getReference("users").child(uid).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                user = dataSnapshot.getValue(User.class);
+                TextView pseudoTV = findViewById(R.id.pseudo);
+                pseudoTV.setText(user.username);
+
+                ImageView avatar = findViewById(R.id.compte);
+
+                if(user.avatar.equals("default"))
+                    Picasso.with(Accueil_Connect.this).load("https://storage.googleapis.com/pjs4-test.appspot.com/pp/default.png").into(avatar);
+                else
+                    Picasso.with(Accueil_Connect.this).load("https://storage.googleapis.com/pjs4-test.appspot.com/pp/pp"+user.avatar+".png").into(avatar);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
 
         //cas ou l'activité et lancé par le bouton fridge de l'espace perso
         try {
@@ -66,6 +92,7 @@ public class Accueil_Connect extends AppCompatActivity implements FFridge.OnFrag
                     Intent rechSimpleIntent = new Intent(Accueil_Connect.this, RechercheActivity.class);
                     String message = rechSimple.getText().toString();
                     rechSimpleIntent.putExtra("estSimple", message);
+                    startActivity(rechSimpleIntent);
                     return true;
                 }
                 return false;
@@ -128,31 +155,6 @@ public class Accueil_Connect extends AppCompatActivity implements FFridge.OnFrag
     public void recherche(View view){
         Intent searchPage = new Intent(Accueil_Connect.this, RechercheActivity.class);
         startActivity(searchPage);
-    }
-
-    public void FragRecherche(View view){
-        Frecherche fragment = new Frecherche();
-        fragmentManager = getSupportFragmentManager();
-        fragmentTransaction = fragmentManager.beginTransaction();
-
-        fragmentTransaction.replace(R.id.contain_fragment, fragment);
-        fragmentTransaction.commit();
-
-        ImageView img = findViewById(R.id.home);
-        img.setImageResource(R.drawable.home);
-
-        img = findViewById(R.id.ajout);
-        img.setImageResource(R.drawable.add);
-
-        img = findViewById(R.id.fridge);
-        img.setImageResource(R.drawable.fridge);
-
-
-        img = findViewById(R.id.recherche);
-        img.setImageResource(R.drawable.moreactive);
-
-        img = findViewById(R.id.voyage);
-        img.setImageResource(R.drawable.world);
     }
 
     public void ajoutRecette(View view){
