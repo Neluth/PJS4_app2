@@ -24,6 +24,7 @@ public class Ingredients {
         result.put("ing",index);
         result.put("name", name);
         result.put("quantity",quantity);
+        result.put("name", name);
         return result;
     }
 
