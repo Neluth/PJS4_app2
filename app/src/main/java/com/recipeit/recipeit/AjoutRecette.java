@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -57,7 +58,6 @@ public class AjoutRecette extends AppCompatActivity {
     private StorageReference stor;
     private String userId =  FirebaseAuth.getInstance().getCurrentUser().getUid();
     private SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-    private long formattedDate;
     private Uri selectedImage;
 
     private FragmentTransaction fragmentTransaction;
@@ -360,7 +360,12 @@ public class AjoutRecette extends AppCompatActivity {
 
                     }
                 }
-                StorageReference st = stor.child("/"+key+".jpeg");
+
+                final MimeTypeMap mime = MimeTypeMap.getSingleton();
+                String extension = mime.getExtensionFromMimeType(getContentResolver().getType(selectedImage));
+
+                StorageReference st = stor.child("/"+key+""+extension);
+
                 st.putFile(selectedImage).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {

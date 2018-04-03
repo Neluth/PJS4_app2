@@ -30,7 +30,7 @@ public class Recettes {
 
     public Recettes(int difficulty, String slug, String title, String userId, String thumbnail, String origin,
                     String type, String history){
-        this.accepted = true;
+        this.accepted = false;
         this.difficulty = difficulty;
         this.slug = slug;
         this.title = title;

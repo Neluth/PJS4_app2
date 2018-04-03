@@ -145,7 +145,7 @@ public class RecetteActivity extends AppCompatActivity {
     public static void setListViewHeightBasedOnChildren(ListView listView) {
 
         ListAdapter listAdapter = listView.getAdapter();
-        if (listAdapter == null) 
+        if (listAdapter == null)
             return;
 
 
