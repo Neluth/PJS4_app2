@@ -107,4 +107,10 @@ public class Accueil extends AppCompatActivity implements Faccueil.OnFragmentInt
     public void onFragmentInteraction(Uri uri) {
 
     }
+
+    public void rechercheAv(View view) {
+        Intent rechAv = new Intent(Accueil.this, RechercheActivity.class);
+        rechAv.putExtra("estAv", true);
+        startActivity(rechAv);
+    }
 }

@@ -56,6 +56,23 @@ public class RechercheActivity extends AppCompatActivity{
         setContentView(R.layout.activity_recherche);
         searcher = Searcher.create(ALGOLIA_APP_ID, ALGOLIA_SEARCH_API_KEY, ALGOLIA_INDEX_NAME);
 
+        Intent intent = getIntent();
+
+        // récupère les extras s'il y en a
+        Bundle extras = intent.getExtras();
+        if (extras != null) {
+            if(extras.containsKey("estSimple")) {
+                //TODO recherche simple
+                extras.getString("estSimple");
+            }
+            if (extras.containsKey("estAv")) {
+                if (extras.getBoolean("estAv")) {
+                    //recherche avancée
+                    findViewById(R.id.btnFilters).performClick();
+                }
+            }
+        }
+
         List<String> ings = (ArrayList<String>)getIntent().getSerializableExtra("INGS");
 
         if( ings != null){
