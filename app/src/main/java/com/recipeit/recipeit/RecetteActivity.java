@@ -145,12 +145,9 @@ public class RecetteActivity extends AppCompatActivity {
     public static void setListViewHeightBasedOnChildren(ListView listView) {
 
         ListAdapter listAdapter = listView.getAdapter();
-        if (listAdapter == null) {
-            Log.d("BLAH", "setListViewHeightBasedOnChildren: Pas de listAdapter");
+        if (listAdapter == null) 
             return;
-        }
 
-        Log.d("BLAH", "setListViewHeightBasedOnChildren: T_T");
 
         int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.UNSPECIFIED);
         int totalHeight = 0;
@@ -159,7 +156,6 @@ public class RecetteActivity extends AppCompatActivity {
             view = listAdapter.getView(i, view, listView);
             if (i == 0) {
                 view.setLayoutParams(new ViewGroup.LayoutParams(desiredWidth, ViewGroup.LayoutParams.WRAP_CONTENT));
-                Log.d("BLAH", "setListViewHeightBasedOnChildren: pas d'item");
 
             }
 
@@ -167,9 +163,7 @@ public class RecetteActivity extends AppCompatActivity {
             totalHeight += view.getMeasuredHeight();
         }
         ViewGroup.LayoutParams params = listView.getLayoutParams();
-        Log.d("BLAH", "setListViewHeightBasedOnChildren: ////"+listView.getChildCount());
         params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
-        Log.d("BLAH", "setListViewHeightBasedOnChildren: T_T"+params.height);
         listView.setLayoutParams(params);
     }
 }

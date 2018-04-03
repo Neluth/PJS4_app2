@@ -1,5 +1,6 @@
 package com.recipeit.recipeit;
 
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -32,10 +33,12 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.recipeit.recipeit.models.Etape;
 import com.recipeit.recipeit.models.Ingredients;
 import com.recipeit.recipeit.models.Recettes;
 import com.recipeit.recipeit.models.Time;
@@ -54,19 +57,20 @@ public class AjoutRecette extends AppCompatActivity {
     private StorageReference stor;
     private String userId =  FirebaseAuth.getInstance().getCurrentUser().getUid();
     private SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-    private String formattedDate;
+    private long formattedDate;
     private Uri selectedImage;
 
     private FragmentTransaction fragmentTransaction;
     private FragmentManager fragmentManager;
     private int nbIngredients = 0;
-    private Spinner spinner;
+    private Spinner spinnerIng, spinnerType, spinnerOrigine;
     private ListView lvIngQuant, lvEtape;
     private List<String> lsTempIng = new ArrayList<String>();
     private List<String> lsIngredientsQuantite = new ArrayList<String>();
     private List<String>lsEtape = new ArrayList<String>();
     private ArrayAdapter<String> adapterIng, adapterEtape;
-    private EditText txtQ, txtEtape, txtHour, txtMinute, txtNom;
+    private EditText txtQ, txtEtape, txtHour, txtMinute, txtNom, txtHistoire;
+    private TextView checkPhoto;
 
 
     @Override
@@ -76,9 +80,54 @@ public class AjoutRecette extends AppCompatActivity {
 
         ref = FirebaseDatabase.getInstance().getReference();
         stor = FirebaseStorage.getInstance().getReference();
-        Date d = Calendar.getInstance().getTime();
-        formattedDate = df.format(d);
+
+        checkPhoto = (TextView) findViewById(R.id.titrephoto);
         txtNom = (EditText) findViewById(R.id.nom_recette);
+
+        //histoire et type
+        txtHistoire = (EditText) findViewById(R.id.Description);
+        spinnerType = (Spinner) findViewById(R.id.listtype);
+        ref.child("type").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                final List<String> type = new ArrayList<>();
+
+                for (DataSnapshot areaSnapshot : dataSnapshot.getChildren()) {
+                    String name = areaSnapshot.child("name").getValue(String.class);
+                    type.add(name);
+                }
+
+                ArrayAdapter<String> areasAdapter = new ArrayAdapter<String>(AjoutRecette.this, android.R.layout.simple_spinner_item, type);
+                areasAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spinnerType.setAdapter(areasAdapter);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        spinnerOrigine = (Spinner) findViewById(R.id.listorigin);
+        ref.child("origin").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                final List<String> origin = new ArrayList<>();
+
+                for (DataSnapshot areaSnapshot : dataSnapshot.getChildren()) {
+                    String name = areaSnapshot.child("name").getValue(String.class);
+                    origin.add(name);
+                }
+
+                ArrayAdapter<String> areasAdapter = new ArrayAdapter<String>(AjoutRecette.this, android.R.layout.simple_spinner_item, origin);
+                areasAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spinnerOrigine.setAdapter(areasAdapter);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         //difficulté
         difSK = findViewById(R.id.diff_seekBar);
@@ -112,7 +161,7 @@ public class AjoutRecette extends AppCompatActivity {
 
         //Ingrédient + Quantite
         txtQ = (EditText) findViewById(R.id.Quant);
-        spinner = (Spinner) findViewById(R.id.listingr);
+        spinnerIng = (Spinner) findViewById(R.id.listingr);
         ref.child("ingredients").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -124,12 +173,11 @@ public class AjoutRecette extends AppCompatActivity {
                 for (DataSnapshot areaSnapshot : dataSnapshot.getChildren()) {
                     String name = areaSnapshot.child("name").getValue(String.class);
                     ingr.add(name);
-                    Log.e("ingr", ingr.toString());
                 }
 
                 ArrayAdapter<String> areasAdapter = new ArrayAdapter<String>(AjoutRecette.this, android.R.layout.simple_spinner_item, ingr);
                 areasAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                spinner.setAdapter(areasAdapter);
+                spinnerIng.setAdapter(areasAdapter);
             }
 
             @Override
@@ -183,7 +231,7 @@ public class AjoutRecette extends AppCompatActivity {
                     return;
                 }
                 String res ="";
-                res += spinner.getSelectedItem().toString();
+                res += spinnerIng.getSelectedItem().toString();
                 res += " -> ";
                 res += txtQ.getText().toString();
                 lsIngredientsQuantite.add(res);
@@ -246,6 +294,10 @@ public class AjoutRecette extends AppCompatActivity {
         fin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (!checkPhoto.getText().toString().contains("Photo enregistrée !")) {
+                    Toast.makeText(getApplicationContext(), "Selectionner une image illustrant votre recette !", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 if (TextUtils.isEmpty(txtNom.getText().toString())) {
                     Toast.makeText(getApplicationContext(), "Entrez le nom de la recette !", Toast.LENGTH_SHORT).show();
                     return;
@@ -270,8 +322,8 @@ public class AjoutRecette extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Il faut au moins une etape", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                for (int i=0; i<spinner.getAdapter().getCount(); i++){
-                    lsTempIng.add(spinner.getAdapter().getItem(i).toString());
+                for (int i=0; i<spinnerIng.getAdapter().getCount(); i++){
+                    lsTempIng.add(spinnerIng.getAdapter().getItem(i).toString());
                 }
                 ArrayList<String>ing = new ArrayList<String>();
                 ArrayList<String>q = new ArrayList<String>();
@@ -289,11 +341,11 @@ public class AjoutRecette extends AppCompatActivity {
 
                 String key =  ref.child("recipes").push().getKey();
                 String img = key + ".jpg";
-                Recettes recette = null;
-                // FIXME
-                /*new Recettes(formattedDate, p, slug.toLowerCase(),
-                        nom, userId, img);*/
+                Recettes recette = new Recettes(p, slug.toLowerCase(),
+                        nom, userId, img, spinnerOrigine.getSelectedItem().toString(), spinnerType.getSelectedItem().toString(),
+                        txtHistoire.getText().toString());
                 ref.child("recipes").child(key).setValue(recette);
+                ref.child("recipes").child(key).child("createdAt").setValue(ServerValue.TIMESTAMP);
                 Time time = new Time();
                 ref.child("recipes").child(key).child("time").setValue(time.toMap(txtHour.getText().toString(), txtMinute.getText().toString()));
                 Etape etape = new Etape();
@@ -317,8 +369,8 @@ public class AjoutRecette extends AppCompatActivity {
                         // creation recette reussie, envoi notification
                         Intent intent = new Intent(AjoutRecette.this, Notification.class);
                         Log.d("notifOK", "oknotif");
-                        startActivity(intent);
-                        //PendingIntent pendingIntent = PendingIntent.getBroadcast(AjoutRecette.this, 0, intent, 0);
+                        //startActivity(intent);
+                        PendingIntent pendingIntent = PendingIntent.getBroadcast(AjoutRecette.this, 0, intent, 0);
 
                     }
                 });
@@ -346,6 +398,7 @@ public class AjoutRecette extends AppCompatActivity {
                         Bitmap bit = BitmapFactory.decodeStream(getContentResolver().openInputStream(selectedImage));
                         img.setScaleType(ImageView.ScaleType.CENTER_CROP);
                         img.setImageBitmap(bit);
+                        checkPhoto.setText("Photo enregistrée !");
                     }
                     catch(Exception e){}
                     //img.setImageURI(selectedImage);

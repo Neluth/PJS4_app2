@@ -145,6 +145,75 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/titreHistory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/juliussansone"
+                android:text="Histoire"
+                android:textAlignment="center"
+                android:textColor="@color/noir"
+                android:textSize="20sp"
+                app:layout_constraintTop_toBottomOf="@id/contain_nom" />
+
+            <TextView
+                android:id="@+id/titretype"
+                android:layout_width="178dp"
+                android:layout_height="29dp"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/juliussansone"
+                android:text="Type"
+                android:textAlignment="center"
+                android:textColor="@color/noir"
+                android:textSize="20sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/titreHistory" />
+
+            <TextView
+                android:id="@+id/titreorigin"
+                android:layout_width="176dp"
+                android:layout_height="29dp"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/juliussansone"
+                android:text="Origine"
+                android:textAlignment="center"
+                android:textColor="@color/noir"
+                android:textSize="20sp"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/titreHistory" />
+
+            <Spinner
+                android:id="@+id/listtype"
+                android:layout_width="178dp"
+                android:layout_height="43dp"
+                android:layout_marginTop="4dp"
+                android:gravity="center"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/titretype" />
+
+            <Spinner
+                android:id="@+id/listorigin"
+                android:layout_width="178dp"
+                android:layout_height="43dp"
+                android:layout_marginTop="4dp"
+                android:gravity="center"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/titreorigin" />
+
+            <EditText
+                android:id="@+id/Description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Décrivez votre recette !"
+                android:inputType="textMultiLine"
+                tools:layout_editor_absoluteX="85dp"
+                tools:layout_editor_absoluteY="562dp"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/listorigin" />
+
+            <TextView
                 android:id="@+id/titrediff"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -154,7 +223,7 @@
                 android:textAlignment="center"
                 android:textColor="@color/noir"
                 android:textSize="20sp"
-                app:layout_constraintTop_toBottomOf="@id/contain_nom" />
+                app:layout_constraintTop_toBottomOf="@id/Description" />
 
             <SeekBar
                 android:id="@+id/diff_seekBar"

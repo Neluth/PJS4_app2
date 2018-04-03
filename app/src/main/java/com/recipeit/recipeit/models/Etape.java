@@ -1,4 +1,4 @@
-package com.recipeit.recipeit;
+package com.recipeit.recipeit.models;
 
 import com.google.firebase.database.Exclude;
 

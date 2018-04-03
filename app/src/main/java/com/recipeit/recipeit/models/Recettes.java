@@ -28,19 +28,16 @@ public class Recettes {
     public Recettes(){}
 
 
-    public Recettes(
-            long createdAt,
-            int difficulty,
-            String slug,
-            String title,
-            String userId,
-            String thumbnail){
+    public Recettes(int difficulty, String slug, String title, String userId, String thumbnail, String origin,
+                    String type, String history){
         this.accepted = true;
-        this.createdAt = createdAt;
         this.difficulty = difficulty;
         this.slug = slug;
         this.title = title;
         this.userid = userId;
         this.thumbnail = thumbnail;
+        this.origin = origin;
+        this.type = type;
+        this.history = history;
     }
 }
