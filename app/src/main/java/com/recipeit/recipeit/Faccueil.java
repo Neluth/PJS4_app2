@@ -87,10 +87,14 @@ public class Faccueil extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_faccueil, container, false);
+
+        //TODO chercher les images de recettes sur firebase
+
         //initialiser les images top recettes et recettes du moment
         carouselView = (CarouselView) view.findViewById(R.id.carouselView);
         carouselView.setPageCount(sampleImages.length);
         carouselView.setImageListener(imageListener);
+        
         //démarre une activité recette en lui donnant l'id d'une recette
         carouselView.setImageClickListener(new ImageClickListener() {
             @Override

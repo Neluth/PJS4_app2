@@ -131,6 +131,7 @@
                         android:textSize="27sp"
                         android:layout_marginTop="15dp"
                         android:layout_marginStart="10dp"
+                        android:onClick="rechercheAv"
                         app:layout_constraintTop_toBottomOf="@id/rech"
                         app:layout_constraintStart_toEndOf="@id/boutonPlus"/>
 
