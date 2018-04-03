@@ -6,7 +6,10 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -37,6 +40,24 @@ public class Accueil extends AppCompatActivity implements Faccueil.OnFragmentInt
             startActivity(new Intent(Accueil.this, Accueil_Connect.class));
             finish();
         }
+
+        // soumission d'une recherche simple (redirection recherche)
+        final EditText rechSimple = (EditText) findViewById(R.id.rechercheSimple);
+
+        rechSimple.setOnEditorActionListener(new EditText.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                if (i == EditorInfo.IME_ACTION_DONE) {
+                    Intent rechSimpleIntent = new Intent(Accueil.this, RechercheActivity.class);
+                    String message = rechSimple.getText().toString();
+                    rechSimpleIntent.putExtra("estSimple", message);
+                    startActivity(rechSimpleIntent);
+                    return true;
+                }
+                return false;
+            }
+
+        });
     }
 
     public void connexion(View view){

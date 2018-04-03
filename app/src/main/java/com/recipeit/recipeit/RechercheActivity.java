@@ -8,18 +8,22 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.accessibility.AccessibilityNodeInfo;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.algolia.instantsearch.events.QueryTextChangeEvent;
 import com.algolia.instantsearch.helpers.InstantSearch;
 import com.algolia.instantsearch.helpers.Searcher;
+import com.algolia.instantsearch.ui.views.Hits;
 import com.algolia.instantsearch.ui.views.SearchBox;
 
 import java.util.ArrayList;
@@ -35,6 +39,8 @@ public class RechercheActivity extends AppCompatActivity{
     private FragmentTransaction fragmentTransaction;
     private FragmentManager fragmentManager;
 
+    private SearchBox sb;
+    private Hits h;
     private Button btnFilter;
     private ConstraintLayout cl;
     private ListView lv_ings;
@@ -59,11 +65,13 @@ public class RechercheActivity extends AppCompatActivity{
 
         Intent intent = getIntent();
 
+        sb = findViewById(R.id.searchBox);
+        h = findViewById(R.id.hits);
+
         // récupère les extras s'il y en a
         Bundle extras = intent.getExtras();
         if (extras != null) {
             if(extras.containsKey("estSimple")) {
-                SearchBox sb = findViewById(R.id.searchBox);
                 sb.setQuery(extras.getString("estSimple"), true);
             }
             if (extras.containsKey("estAv")) {
@@ -82,6 +90,7 @@ public class RechercheActivity extends AppCompatActivity{
 
         InstantSearch helper = new InstantSearch(this, searcher);
         helper.search();
+
 
     }
 

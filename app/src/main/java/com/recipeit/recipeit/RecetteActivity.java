@@ -14,11 +14,15 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.recipeit.recipeit.adapter.CommentAdapter;
 import com.recipeit.recipeit.adapter.IngredientAdapter;
 import com.recipeit.recipeit.adapter.StepAdapter;
+import com.recipeit.recipeit.models.Comment;
 import com.recipeit.recipeit.models.Recettes;
+import com.recipeit.recipeit.models.User;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RecetteActivity extends AppCompatActivity {
@@ -27,13 +31,18 @@ public class RecetteActivity extends AppCompatActivity {
     private String post_uid = null;
 
     private ImageView img_v_thumbnail;
+    private ImageView img_v_difficulty;
     private TextView txt_v_title;
     private TextView txt_v_history;
     private TextView txt_v_username;
     private ListView lv_ingredients;
     private ListView lv_steps;
+    private ListView lv_comments;
     private TextView txt_v_time;
     private TextView txt_v_note;
+
+    private Comment com;
+    private List<Comment> comments = new ArrayList<Comment>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,10 +53,13 @@ public class RecetteActivity extends AppCompatActivity {
         Log.d("id", "onCreateView: "+post_key);
 
         img_v_thumbnail = (ImageView) findViewById(R.id.recetteImage);
+        img_v_thumbnail = (ImageView) findViewById(R.id.img_difficulty);
+
         txt_v_title = (TextView) findViewById(R.id.titreRecette);
         txt_v_username = (TextView) findViewById(R.id.createurRecette);
         lv_ingredients = (ListView) findViewById(R.id.listeIngredients);
         lv_steps = (ListView) findViewById(R.id.listeSteps);
+        lv_steps = (ListView) findViewById(R.id.listeComments);
         txt_v_time = (TextView) findViewById(R.id.tempsRecette);
         txt_v_note = (TextView) findViewById(R.id.note);
 
@@ -61,6 +73,8 @@ public class RecetteActivity extends AppCompatActivity {
                 String post_image =
                         "https://storage.googleapis.com/pjs4-test.appspot.com/"
                                 + post.thumbnail;
+                String post_difficulty = "https://storage.googleapis.com/pjs4-test.appspot.com/rating/difficulte"
+                        + post.difficulty +".svg";
                 post_uid = post.userid;
 
 
@@ -76,6 +90,7 @@ public class RecetteActivity extends AppCompatActivity {
                 txt_v_title.setText(post.title);
                 txt_v_time.setText(post.time.hour + "h" + post.time.minute + "min");
                 Picasso.with(getApplicationContext()).load(post_image).into(img_v_thumbnail);
+                Picasso.with(getApplicationContext()).load(post_difficulty).into(img_v_difficulty);
 
                 FirebaseDatabase.getInstance().getReference("users").child(post_uid).addValueEventListener(new ValueEventListener() {
                     @Override
@@ -115,10 +130,29 @@ public class RecetteActivity extends AppCompatActivity {
                     }
                 });
 
+
                 FirebaseDatabase.getInstance().getReference("comments").child(post_uid).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
+                        for (DataSnapshot child: dataSnapshot.getChildren()) {
+                            com = child.getValue(Comment.class);
+                            FirebaseDatabase.getInstance().getReference("users").child(child.getKey()).addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    com.user = dataSnapshot.getValue(User.class);
+                                    comments.add(com);
+                                    CommentAdapter commentAdapter = new CommentAdapter(getApplicationContext(), comments);
+                                    lv_comments.setAdapter(commentAdapter);
+                                }
 
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
+
+
+                        }
                     }
 
                     @Override

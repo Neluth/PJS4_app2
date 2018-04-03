@@ -136,6 +136,7 @@
                             android:layout_width="40dp"
                             android:layout_height="20dp"
                             android:layout_weight="1"
+                            android:onClick="startListening"
                             android:contentDescription="@string/desc_mic"
                             app:srcCompat="@drawable/micro" />
 

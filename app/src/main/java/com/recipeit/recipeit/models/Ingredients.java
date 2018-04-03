@@ -22,6 +22,7 @@ public class Ingredients {
     public Map<String, Object> toMap(int index, String quantity) {
         HashMap<String, Object> result = new HashMap<>();
         result.put("ing",index);
+        result.put("name", name);
         result.put("quantity",quantity);
         return result;
     }

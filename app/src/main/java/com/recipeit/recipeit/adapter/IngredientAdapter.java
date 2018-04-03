@@ -1,6 +1,7 @@
 package com.recipeit.recipeit.adapter;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,8 +42,14 @@ public class IngredientAdapter  extends ArrayAdapter<Ingredients>{
         Ingredients ing = getItem(position);
 
         //il ne reste plus qu'à remplir notre vue
+        Typeface ralewaylight = Typeface.createFromAsset(getContext().getAssets(), "font/ralewaylight.ttf");
+        Typeface ralewayregular = Typeface.createFromAsset(getContext().getAssets(), "font/ralewayregular.ttf");
         viewHolder.name.setText(ing.name);
         viewHolder.quantity.setText(ing.quantity);
+        TextView txtDe = convertView.findViewById(R.id.txtDe);
+        viewHolder.name.setTypeface(ralewayregular);
+        viewHolder.quantity.setTypeface(ralewayregular);
+        txtDe.setTypeface(ralewaylight);
 
         return convertView;
     }

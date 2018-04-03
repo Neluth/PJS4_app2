@@ -1,6 +1,7 @@
 package com.recipeit.recipeit.adapter;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,8 +41,13 @@ public class StepAdapter extends ArrayAdapter<String> {
         String step = getItem(position);
 
         //il ne reste plus qu'à remplir notre vue
+        Typeface raleway = Typeface.createFromAsset(getContext().getAssets(), "font/ralewaylight.ttf");
+        Typeface cookie = Typeface.createFromAsset(getContext().getAssets(), "font/cookie.ttf");
         viewHolder.index.setText("Étape "+(position+1));
         viewHolder.name.setText(step);
+        viewHolder.name.setTypeface(raleway);
+        viewHolder.index.setTypeface(cookie);
+        viewHolder.index.setTextSize(23);
 
         return convertView;
     }

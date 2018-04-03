@@ -11,6 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ImageClickListener;
 import com.synnapps.carouselview.ImageListener;
@@ -37,18 +43,12 @@ public class Faccueil extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
-    CarouselView carouselView;
-    ImageListener imageListener = new ImageListener() {
-        @Override
-        public void setImageForPosition(int position, ImageView imageView) {
-            imageView.setImageResource(sampleImages[position]);
-        }
-    };
-    int[] sampleImages = {R.drawable.default_carousel, R.drawable.default_carousel, R.drawable.default_carousel};
-    String[] idRecetteImages = {"1", "2", "3"};
+    private CarouselView carouselView;
+    private ImageListener imageListener;
 
-    private static ArrayList<ImageView> topRecettes;
-    private static ArrayList<ImageView> recettesDuMoment;
+    private ArrayList<ArrayList<String>> recettesDuMoment;
+    private ArrayList<TopRecette> topRecettes = new ArrayList<TopRecette>();
+    int j = 0;
 
     public Faccueil() {
         // Required empty public constructor
@@ -92,8 +92,105 @@ public class Faccueil extends Fragment {
 
         //initialiser les images top recettes et recettes du moment
         carouselView = (CarouselView) view.findViewById(R.id.carouselView);
-        carouselView.setPageCount(sampleImages.length);
-        carouselView.setImageListener(imageListener);
+
+        ImageView imgV1 = view.findViewById(R.id.topRecette1);
+        ImageView imgV2 = view.findViewById(R.id.topRecette2);
+        ImageView imgV3 = view.findViewById(R.id.topRecette3);
+
+        topRecettes.add(new TopRecette(imgV1, null, null));
+        topRecettes.add(new TopRecette(imgV2, null, null));
+        topRecettes.add(new TopRecette(imgV3, null, null));
+
+        FirebaseDatabase.getInstance()
+                .getReference("recipes")
+                .orderByChild("createdAt")
+                .limitToFirst(3)
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        int i = 0;
+                        recettesDuMoment = new ArrayList<ArrayList<String>>();
+                        for (DataSnapshot child:dataSnapshot.getChildren()) {
+                            String url = "https://storage.googleapis.com/pjs4-test.appspot.com/" + child.child("thumbnail").getValue();
+                            String recipeid = child.getKey();
+
+                            recettesDuMoment.add(i, new ArrayList<String>());
+                            recettesDuMoment.get(i).add(url);
+                            recettesDuMoment.get(i).add(recipeid);
+
+                            i++;
+                        }
+
+                        imageListener = new ImageListener() {
+                            @Override
+                            public void setImageForPosition(int position, ImageView imageView) {
+                                Picasso.with(getContext()).load(recettesDuMoment.get(position).get(0)).into(imageView);
+                            }
+                        };
+
+
+                        carouselView.setImageListener(imageListener);
+                        carouselView.setPageCount(recettesDuMoment.size());
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+        FirebaseDatabase.getInstance().getReference("ratings").orderByChild("averageRating").limitToLast(3).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                j = 0;
+                for (DataSnapshot child: dataSnapshot.getChildren()) {
+                    FirebaseDatabase.getInstance().getReference("recipes").child(child.getKey()).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+
+                            topRecettes.get(j).url = "https://storage.googleapis.com/pjs4-test.appspot.com/" + dataSnapshot.child("thumbnail").getValue();
+                            topRecettes.get(j).id = dataSnapshot.getKey();
+
+
+
+                            Picasso.with(getContext()).load(topRecettes.get(j).url).into(topRecettes.get(j).imgV);
+                            topRecettes.get(j).imgV.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        Intent intentRecette;
+                                        intentRecette = new Intent(getActivity(), RecetteActivity.class);
+                                        for (TopRecette t:topRecettes) {
+                                            if(t.imgV == view)
+                                                j=topRecettes.indexOf(t);
+                                        }
+                                        intentRecette.putExtra("id", topRecettes.get(j).id);
+                                        startActivity(intentRecette);
+                                    }
+                                });
+
+                            j++;
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                            Log.d("tagrecipes", "onCancelled: " + databaseError);
+                        }
+                    });
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d("tagratings", "onCancelled: " + databaseError);
+            }
+        });
+
+
+
         
         //démarre une activité recette en lui donnant l'id d'une recette
         carouselView.setImageClickListener(new ImageClickListener() {
@@ -101,18 +198,14 @@ public class Faccueil extends Fragment {
             public void onClick(int position) {
                 //Log.e("truc", getActivity().getLocalClassName());
                 Intent intentRecette;
-                if(getActivity().getLocalClassName().equals("Accueil_Connect") ) {
-                    intentRecette = new Intent(getActivity(), Accueil_Connect.class);
-                }
-                else {
-                    intentRecette = new Intent(getActivity(), Accueil.class);
-                }
-                intentRecette.putExtra("recipeFromId", idRecetteImages[position]);
+                intentRecette = new Intent(getActivity(), RecetteActivity.class);
+                intentRecette.putExtra("id", recettesDuMoment.get(position).get(1));
                 startActivity(intentRecette);
-                //TODO récupérer cet intent dans l'Accueil et l'Accueil_Connect
             }
         });
         // Inflate the layout for this fragment
+
+
         return view;
     }
 
@@ -153,5 +246,17 @@ public class Faccueil extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    class TopRecette{
+        ImageView imgV;
+        String url;
+        String id;
+
+        TopRecette(ImageView imgV, String url, String id){
+            this.imgV = imgV;
+            this.url = url;
+            this.id = id;
+        }
     }
 }
