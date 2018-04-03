@@ -23,6 +23,7 @@ public class Ingredients {
         HashMap<String, Object> result = new HashMap<>();
         result.put("ing",index);
         result.put("quantity",quantity);
+        result.put("name", name);
         return result;
     }
 
