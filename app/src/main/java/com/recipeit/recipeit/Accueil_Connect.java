@@ -19,18 +19,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
+import com.recipeit.recipeit.fragments.FAccueil;
+import com.recipeit.recipeit.fragments.FFridge;
+import com.recipeit.recipeit.fragments.FVoyage;
 import com.recipeit.recipeit.models.User;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class Accueil_Connect extends AppCompatActivity implements FFridge.OnFragmentInteractionListener, Faccueil.OnFragmentInteractionListener, FVoyage.OnFragmentInteractionListener{
+public class Accueil_Connect extends AppCompatActivity implements FFridge.OnFragmentInteractionListener, FAccueil.OnFragmentInteractionListener, FVoyage.OnFragmentInteractionListener{
 
     private FragmentTransaction fragmentTransaction;
     private FragmentManager fragmentManager;
@@ -49,7 +50,7 @@ public class Accueil_Connect extends AppCompatActivity implements FFridge.OnFrag
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
 
-        Faccueil fragment = new Faccueil();
+        FAccueil fragment = new FAccueil();
         fragmentTransaction.replace(R.id.contain_fragment, fragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
@@ -141,7 +142,7 @@ public class Accueil_Connect extends AppCompatActivity implements FFridge.OnFrag
     }
 
     public void FragAccueil(View view){
-        Faccueil fragment = new Faccueil();
+        FAccueil fragment = new FAccueil();
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
 

@@ -1,4 +1,4 @@
-package com.recipeit.recipeit;
+package com.recipeit.recipeit.fragments;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,11 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.recipeit.recipeit.R;
+import com.recipeit.recipeit.RecetteActivity;
 import com.squareup.picasso.Picasso;
 import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ImageClickListener;
@@ -27,12 +28,12 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link Faccueil.OnFragmentInteractionListener} interface
+ * {@link FAccueil.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link Faccueil#newInstance} factory method to
+ * Use the {@link FAccueil#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Faccueil extends Fragment {
+public class FAccueil extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -50,7 +51,7 @@ public class Faccueil extends Fragment {
     private ArrayList<TopRecette> topRecettes = new ArrayList<TopRecette>();
     int j = 0;
 
-    public Faccueil() {
+    public FAccueil() {
         // Required empty public constructor
     }
 
@@ -60,11 +61,11 @@ public class Faccueil extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment Faccueil.
+     * @return A new instance of fragment FAccueil.
      */
     // TODO: Rename and change types and number of parameters
-    public static Faccueil newInstance(String param1, String param2) {
-        Faccueil fragment = new Faccueil();
+    public static FAccueil newInstance(String param1, String param2) {
+        FAccueil fragment = new FAccueil();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);

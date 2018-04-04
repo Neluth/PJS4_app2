@@ -1,4 +1,4 @@
-package com.recipeit.recipeit;
+package com.recipeit.recipeit.fragments;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,7 +14,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.recipeit.recipeit.models.Recettes;
+import com.recipeit.recipeit.R;
+import com.recipeit.recipeit.RecetteActivity;
 import com.squareup.picasso.Picasso;
 import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ImageClickListener;

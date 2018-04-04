@@ -14,9 +14,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.recipeit.recipeit.fragments.FAccueil;
+import com.recipeit.recipeit.fragments.FVoyage;
 
-public class Accueil extends AppCompatActivity implements Faccueil.OnFragmentInteractionListener, FVoyage.OnFragmentInteractionListener{
+public class Accueil extends AppCompatActivity implements FAccueil.OnFragmentInteractionListener, FVoyage.OnFragmentInteractionListener{
 
     private FragmentTransaction fragmentTransaction;
     private FragmentManager fragmentManager;
@@ -29,7 +30,7 @@ public class Accueil extends AppCompatActivity implements Faccueil.OnFragmentInt
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
 
-        Faccueil fragment = new Faccueil();
+        FAccueil fragment = new FAccueil();
         fragmentTransaction.replace(R.id.contain_fragment, fragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
@@ -89,7 +90,7 @@ public class Accueil extends AppCompatActivity implements Faccueil.OnFragmentInt
     }
 
     public void FragAccueil(View view){
-        Faccueil fragment = new Faccueil();
+        FAccueil fragment = new FAccueil();
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
 
