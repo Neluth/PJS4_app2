@@ -53,13 +53,13 @@ public class RecetteActivity extends AppCompatActivity {
         Log.d("id", "onCreateView: "+post_key);
 
         img_v_thumbnail = (ImageView) findViewById(R.id.recetteImage);
-        img_v_thumbnail = (ImageView) findViewById(R.id.img_difficulty);
+        img_v_difficulty = (ImageView) findViewById(R.id.fourchettes);
 
         txt_v_title = (TextView) findViewById(R.id.titreRecette);
         txt_v_username = (TextView) findViewById(R.id.createurRecette);
         lv_ingredients = (ListView) findViewById(R.id.listeIngredients);
         lv_steps = (ListView) findViewById(R.id.listeSteps);
-        lv_steps = (ListView) findViewById(R.id.listeComments);
+        lv_comments = (ListView) findViewById(R.id.listeComments);
         txt_v_time = (TextView) findViewById(R.id.tempsRecette);
         txt_v_note = (TextView) findViewById(R.id.note);
 
@@ -68,13 +68,13 @@ public class RecetteActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Recettes post = dataSnapshot.getValue(Recettes.class);
 
-                Log.d("recipe", ""+post);
+                Log.d("recipe", ""+post.thumbnail);
 
                 String post_image =
                         "https://storage.googleapis.com/pjs4-test.appspot.com/"
                                 + post.thumbnail;
                 String post_difficulty = "https://storage.googleapis.com/pjs4-test.appspot.com/rating/difficulte"
-                        + post.difficulty +".svg";
+                        + post.difficulty + ".svg";
                 post_uid = post.userid;
 
 
