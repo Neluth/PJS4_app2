@@ -66,9 +66,11 @@ public class RecetteActivity extends AppCompatActivity {
 
         txt_v_title = (TextView) findViewById(R.id.titreRecette);
         txt_v_username = (TextView) findViewById(R.id.createurRecette);
+
         ll_ingredients = (LinearLayout) findViewById(R.id.listeIngredients);
         ll_steps = (LinearLayout) findViewById(R.id.listeSteps);
         ll_comments = (LinearLayout) findViewById(R.id.listeComments);
+
         txt_v_time = (TextView) findViewById(R.id.tempsRecette);
         txt_v_note = (TextView) findViewById(R.id.note);
 
@@ -80,13 +82,11 @@ public class RecetteActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Recettes post = dataSnapshot.getValue(Recettes.class);
 
-                Log.d("recipe", ""+post);
-
                 String post_image =
                         "https://storage.googleapis.com/pjs4-test.appspot.com/"
                                 + post.thumbnail;
                 String post_difficulty = "https://storage.googleapis.com/pjs4-test.appspot.com/rating/difficulte"
-                        + post.difficulty +".svg";
+                        + post.difficulty + ".svg";
                 post_uid = post.userid;
 
 
