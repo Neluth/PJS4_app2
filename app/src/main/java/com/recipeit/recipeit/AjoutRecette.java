@@ -340,7 +340,7 @@ public class AjoutRecette extends AppCompatActivity {
                 String slug = norm.replace(" ", "-");
 
                 String key =  ref.child("recipes").push().getKey();
-                String img = key + ".jpg";
+                String img = key + ".jpeg";
                 Recettes recette = new Recettes(p, slug.toLowerCase(),
                         nom, userId, img, spinnerOrigine.getSelectedItem().toString(), spinnerType.getSelectedItem().toString(),
                         txtHistoire.getText().toString());
@@ -355,7 +355,7 @@ public class AjoutRecette extends AppCompatActivity {
                     for (int j=0;j<lsTempIng.size();j++) {
                         if (ing.get(i).contains(lsTempIng.get(j))){
                             ref.child("recipes").child(key).child("ingredients").child(Integer.toString(i))
-                                    .setValue(Ingredients.toMap(j,q.get(i)));
+                                    .setValue(Ingredients.toMap(j, q.get(i), lsTempIng.get(j)));
                         }
 
                     }

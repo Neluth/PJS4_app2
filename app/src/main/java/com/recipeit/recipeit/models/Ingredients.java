@@ -19,12 +19,11 @@ public class Ingredients {
     public Ingredients(){}
 
     @Exclude
-    public Map<String, Object> toMap(int index, String quantity) {
+    public Map<String, Object> toMap(int index, String quantity, String name) {
         HashMap<String, Object> result = new HashMap<>();
         result.put("ing",index);
         result.put("name", name);
         result.put("quantity",quantity);
-        result.put("name", name);
         return result;
     }
 

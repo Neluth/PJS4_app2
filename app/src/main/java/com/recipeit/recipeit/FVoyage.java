@@ -1,12 +1,26 @@
 package com.recipeit.recipeit;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.recipeit.recipeit.models.Recettes;
+import com.squareup.picasso.Picasso;
+import com.synnapps.carouselview.CarouselView;
+import com.synnapps.carouselview.ImageClickListener;
+import com.synnapps.carouselview.ImageListener;
+
+import java.util.ArrayList;
 
 
 /**
@@ -28,6 +42,12 @@ public class FVoyage extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+    private ImageListener imageListenerEurope;
+    private ArrayList<ArrayList<String>> recettesEurope;
+    private CarouselView carouselViewEurope;
+    private CarouselView carouselViewAsie;
+    private ArrayList<ArrayList<String>> recettesAsie;
+    private ImageListener imageListenerAsie;
 
     public FVoyage() {
         // Required empty public constructor
@@ -63,8 +83,118 @@ public class FVoyage extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_fvoyage, container, false);
+        View view = inflater.inflate(R.layout.fragment_fvoyage, container, false);
+
+        
+        // Carousel Europe
+        carouselViewEurope = view.findViewById(R.id.carouselViewEurope);
+        FirebaseDatabase.getInstance()
+                .getReference("recipes")
+                .orderByChild("createdAt")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        int i = 0;
+                        recettesEurope = new ArrayList<ArrayList<String>>();
+                        for (DataSnapshot child : dataSnapshot.getChildren()) {
+                            if(child.child("origin").getValue().equals("européenne")) {
+                                String url = "https://storage.googleapis.com/pjs4-test.appspot.com/" + child.child("thumbnail").getValue();
+                                String recipeid = child.getKey();
+
+                                recettesEurope.add(i, new ArrayList<String>());
+                                recettesEurope.get(i).add(url);
+                                recettesEurope.get(i).add(recipeid);
+
+                                i++;
+                            }
+                        }
+
+                        imageListenerEurope = new ImageListener() {
+                            @Override
+                            public void setImageForPosition(int position, ImageView imageView) {
+                                Picasso.with(getContext()).load(recettesEurope.get(position).get(0)).into(imageView);
+                            }
+                        };
+
+
+                        carouselViewEurope.setImageListener(imageListenerEurope);
+                        carouselViewEurope.setPageCount(recettesEurope.size());
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+        //démarre une activité recette en lui donnant l'id d'une recette
+        carouselViewEurope.setImageClickListener(new ImageClickListener() {
+            @Override
+            public void onClick(int position) {
+                //Log.e("truc", getActivity().getLocalClassName());
+                Intent intentRecette;
+                intentRecette = new Intent(getActivity(), RecetteActivity.class);
+                intentRecette.putExtra("id", recettesEurope.get(position).get(1));
+                startActivity(intentRecette);
+            }
+        });
+
+        // Carousel Asie
+        carouselViewAsie = view.findViewById(R.id.carouselViewAsie);
+        FirebaseDatabase.getInstance()
+                .getReference("recipes")
+                .orderByChild("createdAt")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        int i = 0;
+                        recettesAsie = new ArrayList<ArrayList<String>>();
+                        for (DataSnapshot child : dataSnapshot.getChildren()) {
+                            if(child.child("origin").getValue().equals("asiatique")) {
+                                String url = "https://storage.googleapis.com/pjs4-test.appspot.com/" + child.child("thumbnail").getValue();
+                                String recipeid = child.getKey();
+
+                                recettesAsie.add(i, new ArrayList<String>());
+                                recettesAsie.get(i).add(url);
+                                recettesAsie.get(i).add(recipeid);
+
+                                i++;
+                            }
+                        }
+
+                        imageListenerAsie = new ImageListener() {
+                            @Override
+                            public void setImageForPosition(int position, ImageView imageView) {
+                                Picasso.with(getContext()).load(recettesEurope.get(position).get(0)).into(imageView);
+                            }
+                        };
+
+
+                        carouselViewAsie.setImageListener(imageListenerAsie);
+                        carouselViewAsie.setPageCount(recettesAsie.size());
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+        //démarre une activité recette en lui donnant l'id d'une recette
+        carouselViewAsie.setImageClickListener(new ImageClickListener() {
+            @Override
+            public void onClick(int position) {
+                //Log.e("truc", getActivity().getLocalClassName());
+                Intent intentRecette;
+                intentRecette = new Intent(getActivity(), RecetteActivity.class);
+                intentRecette.putExtra("id", recettesAsie.get(position).get(1));
+                startActivity(intentRecette);
+            }
+        });
+                
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
