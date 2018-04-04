@@ -340,7 +340,11 @@ public class AjoutRecette extends AppCompatActivity {
                 String slug = norm.replace(" ", "-");
 
                 String key =  ref.child("recipes").push().getKey();
-                String img = key + ".jpeg";
+
+                final MimeTypeMap mime = MimeTypeMap.getSingleton();
+                String extension = mime.getExtensionFromMimeType(getContentResolver().getType(selectedImage));
+
+                String img = key + "." + extension;
                 Recettes recette = new Recettes(p, slug.toLowerCase(),
                         nom, userId, img, spinnerOrigine.getSelectedItem().toString(), spinnerType.getSelectedItem().toString(),
                         txtHistoire.getText().toString());
@@ -361,8 +365,6 @@ public class AjoutRecette extends AppCompatActivity {
                     }
                 }
 
-                final MimeTypeMap mime = MimeTypeMap.getSingleton();
-                String extension = mime.getExtensionFromMimeType(getContentResolver().getType(selectedImage));
 
                 StorageReference st = stor.child("/" + key + "." + extension);
 
