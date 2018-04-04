@@ -97,7 +97,6 @@
                             android:layout_height="20dp"
                             android:layout_weight="1"
                             app:srcCompat="@drawable/micro"
-                            android:onClick="startListening"
                             android:contentDescription="@string/desc_mic"/>
 
                         <EditText
@@ -121,6 +120,7 @@
                         android:src="@drawable/plus"
                         android:contentDescription="@string/desc_plus"
                         app:layout_constraintTop_toBottomOf="@id/rech"
+                        android:onClick="rechercheAv"
                         app:layout_constraintEnd_toStartOf="@id/guidelineMid"/>
 
                     <TextView

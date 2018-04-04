@@ -140,7 +140,7 @@ public class Faccueil extends Fragment {
                     }
                 });
 
-        FirebaseDatabase.getInstance().getReference("ratings").orderByChild("averageRating").limitToLast(3).addValueEventListener(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference("ratings").orderByChild("averageRating").limitToFirst(3).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 

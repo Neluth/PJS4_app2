@@ -2,9 +2,9 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:maxWidth="250dp"
+    android:layout_width="250dp"
     android:layout_height="match_parent"
-    app:layout_constraintEnd_toEndOf="parent"
     android:padding="10dp"
     android:id="@+id/Relative">
 
