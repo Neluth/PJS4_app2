@@ -32,8 +32,6 @@ public class Inscription extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
     private Date d;
-    private SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
-    private String formattedDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +43,6 @@ public class Inscription extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
         d = Calendar.getInstance().getTime();
-        formattedDate = df.format(d);
     }
 
     public void Creer(View v) {
@@ -93,7 +90,7 @@ public class Inscription extends AppCompatActivity {
 
     private void onAuthSuccess(FirebaseUser user) {
         String username = usernameFromEmail(user.getEmail());
-        writeNewUser(user.getUid(), username, user.getEmail(), formattedDate, txtPassword.getText().toString());
+        writeNewUser(user.getUid(), username, user.getEmail(), d, txtPassword.getText().toString());
     }
     private String usernameFromEmail(String email) {
         if (email.contains("@")) {
@@ -102,7 +99,7 @@ public class Inscription extends AppCompatActivity {
             return email;
         }
     }
-    private void writeNewUser(String userId, String name, String email, String date, String mdp) {
+    private void writeNewUser(String userId, String name, String email, Date date, String mdp) {
         User user = new User(name, email, date, mdp);
         mDatabase.child("users").child(userId).setValue(user);
         Role role = new Role();
