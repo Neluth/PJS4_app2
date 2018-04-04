@@ -364,7 +364,7 @@ public class AjoutRecette extends AppCompatActivity {
                 final MimeTypeMap mime = MimeTypeMap.getSingleton();
                 String extension = mime.getExtensionFromMimeType(getContentResolver().getType(selectedImage));
 
-                StorageReference st = stor.child("/"+key+""+extension);
+                StorageReference st = stor.child("/" + key + "." + extension);
 
                 st.putFile(selectedImage).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
