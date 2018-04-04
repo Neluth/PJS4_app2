@@ -131,7 +131,7 @@ public class AjoutRecette extends AppCompatActivity {
 
         //difficulté
         difSK = findViewById(R.id.diff_seekBar);
-        p = difSK.getProgress();
+        p = difSK.getProgress() + 1;
         //Toast.makeText(AjoutRecette.this, "Progress : " + p, Toast.LENGTH_SHORT).show();
 
         difSK.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -150,7 +150,7 @@ public class AjoutRecette extends AppCompatActivity {
             public void onProgressChanged(SeekBar seekBar, int progress,
                                           boolean fromUser) {
 
-                p = progress;
+                p = progress + 1;
                 // Toast.makeText(AjoutRecette.this, "Progress : " + progress, Toast.LENGTH_SHORT).show();
             }
         });

@@ -232,8 +232,7 @@
                 android:layout_marginEnd="50dp"
                 android:layout_marginStart="50dp"
                 android:layout_marginTop="10dp"
-                android:max="5"
-                android:min="1"
+                android:max="4"
                 android:progressTint="@color/rouge"
                 android:thumbTint="@color/rouge"
                 app:layout_constraintTop_toBottomOf="@id/titrediff" />
