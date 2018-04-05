@@ -50,6 +50,7 @@ public class FAccueil extends Fragment {
     private ArrayList<ArrayList<String>> recettesDuMoment;
     private ArrayList<TopRecette> topRecettes = new ArrayList<TopRecette>();
     int j = 0;
+    int i = 0;
 
     public FAccueil() {
         // Required empty public constructor
@@ -80,6 +81,7 @@ public class FAccueil extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        recettesDuMoment = new ArrayList<ArrayList<String>>();
 
 
     }
@@ -102,44 +104,63 @@ public class FAccueil extends Fragment {
         topRecettes.add(new TopRecette(imgV2, null, null));
         topRecettes.add(new TopRecette(imgV3, null, null));
 
-        FirebaseDatabase.getInstance()
-                .getReference("recipes")
-                .orderByChild("createdAt")
-                .limitToFirst(3)
-                .addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        int i = 0;
-                        recettesDuMoment = new ArrayList<ArrayList<String>>();
-                        for (DataSnapshot child:dataSnapshot.getChildren()) {
-                            String url = "https://storage.googleapis.com/pjs4-test.appspot.com/" + child.child("thumbnail").getValue();
-                            String recipeid = child.getKey();
 
-                            recettesDuMoment.add(i, new ArrayList<String>());
-                            recettesDuMoment.get(i).add(url);
-                            recettesDuMoment.get(i).add(recipeid);
+        FirebaseDatabase.getInstance().getReference("showcase").addValueEventListener(new ValueEventListener() {
 
-                            i++;
-                        }
-
-                        imageListener = new ImageListener() {
-                            @Override
-                            public void setImageForPosition(int position, ImageView imageView) {
-                                Picasso.with(getContext()).load(recettesDuMoment.get(position).get(0)).into(imageView);
-                            }
-                        };
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
 
 
-                        carouselView.setImageListener(imageListener);
-                        carouselView.setPageCount(recettesDuMoment.size());
 
-                    }
+                for(DataSnapshot slugObject : dataSnapshot.getChildren()) {
+                    String slug = slugObject.getKey();
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
+                    FirebaseDatabase.getInstance()
+                            .getReference("recipes")
+                            .orderByChild("slug")
+                            .equalTo(slug)
+                            .addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
 
-                    }
-                });
+                                    for (DataSnapshot child:dataSnapshot.getChildren()) {
+                                        String url = "https://storage.googleapis.com/pjs4-test.appspot.com/" + child.child("thumbnail").getValue();
+                                        String recipeid = child.getKey();
+
+                                        recettesDuMoment.add(new ArrayList<String>());
+                                        recettesDuMoment.get(i).add(url);
+                                        recettesDuMoment.get(i).add(recipeid);
+
+                                        i++;
+                                    }
+
+                                    imageListener = new ImageListener() {
+                                        @Override
+                                        public void setImageForPosition(int position, ImageView imageView) {
+                                            Picasso.with(getContext()).load(recettesDuMoment.get(position).get(0)).into(imageView);
+                                        }
+                                    };
+
+
+                                    carouselView.setImageListener(imageListener);
+                                    carouselView.setPageCount(recettesDuMoment.size());
+
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
 
         FirebaseDatabase.getInstance().getReference("ratings").orderByChild("averageRating").limitToFirst(3).addValueEventListener(new ValueEventListener() {
             @Override
